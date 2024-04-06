@@ -1,0 +1,9 @@
+dummy1:
+  name: dummy
+  force_role: null
+dummy2:
+  name: dummy2
+  force_role: null
+dummy3:
+  name: dummy3
+  force_role: null

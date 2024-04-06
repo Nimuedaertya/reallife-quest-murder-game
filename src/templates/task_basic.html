@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{ task.name }}</title>
+        <meta name="description" content="Wir wollen AmongUs richtig spielen!" />
+        <meta name="authors" content="Nimuedaertya, Limira">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/styles/output.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='src/images/AmongUsFavIcon.ico') }}">
+      </head>   
+  <body>
+    <h2> Aufgabe {{ task.name }} ^-^ </h2>
+	<p>  </p>
+	<h3> Weitere Informationen: </h3>
+	<p> {{ task.description }} </p>
+
+  <form action="" method = "POST">
+    <label for="Name">Name</label>
+    <input type = "text" name = "Name" />
+    <input type = "submit" value = "Submit" />
+  </form>
+
+  </body>
+</html>

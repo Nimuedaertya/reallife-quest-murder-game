@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  color: aliceblue;
+  font-family: OctoberNight;
+  margin-bottom: 0em;
+}
+@font-face {
+  font-family: AmongUs;
+  src: url("../fonts/Amongus-3zjxX.ttf");
+}
+@font-face {
+  font-family: OctoberNight;
+  src: url("../fonts/October Night.otf");
+}
+
+h1,
+h2,
+h3 {
+  font-family: AmongUs;
+  font-size: 4em;
+  text-align: center;
+  background-color: black;
+}
+
+h2 {
+  font-size: 3em;
+}
+
+h3 {
+  font-size: 2em;
+}
+
+ul {
+  font-size: 1.5em;
+}
+p {
+  font-family: OctoberNight;
+  font-size: 1.5em;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin-top: 0.5em;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-image: url("../images/back-stars.jpg");
+  background-color: black;
+  background-repeat: repeat;
+  background-size: 50%;
+  align-items: center;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+
+footer {
+  align-self: center;
+}
+
+input {
+  color: black;
+  text-align: center;
+  justify-self: end;
+  font-size: 1.5em;
+}
+
+body,
+header,
+footer {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+ul {
+  list-style-type: square;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+li {
+  margin-bottom: 0.5em;
+}
+
+button {
+  color: black;
+  font-size: 1.5em;
+  margin-top: 1.5em;
+  border: 2px solid rgb(8, 125, 125);
+  padding: 0.5em;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  color: white;
+  background-color: black;
+  border: 2px solid white;
+}
+
+label {
+  font-size: 1.5em;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.completed {
+  color: green;
+  text-decoration: line-through;
+}
+
+.botlabel,
+.toplabel {
+  font-size: 1.2em;
+}
+
+.ready {
+  background-color: greenyellow;
+  border-color: green;
+}
+
+.ready:hover {
+  color: greenyellow;
+  background-color: black;
+  border: 2px solid greenyellow;
+}
+
+.process {
+  background-color: red;
+  border-color: darkred;
+  margin-top: 0.8em;
+  color: rgb(50, 50, 50);
+}
+
+.process:hover {
+  color: rgb(50, 50, 50);
+  background-color: red;
+  border: 2px solid darkred;
+}
+
+.pause {
+  background-color: gray;
+  border-color: darkgray;
+  color: rgb(50, 50, 50);
+  margin-top: 0.8em;
+  margin-bottom: 0;
+}
+
+.pause:hover {
+  background-color: gray;
+  border-color: darkgray;
+  color: rgb(50, 50, 50);
+  margin-top: 0.8em;
+  margin-bottom: 0;
+}
+.ready,
+.wait,
+.process {
+  width: 7em;
+  text-align: center;
+}
+
+.warning {
+  color: red;
+  font-size: 2em;
+}
+
+#name {
+  max-width: 7em;
+  margin: 0.25em;
+  margin-top: 0.8em;
+  margin-bottom: 0em;
+}
+
+.hidden {
+  display: none;
+}

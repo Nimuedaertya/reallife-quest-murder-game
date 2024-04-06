@@ -1,0 +1,4 @@
+taskdummy3:
+  name: dummy3_task
+  description: dummy3_task_desc
+  max_existence: 8

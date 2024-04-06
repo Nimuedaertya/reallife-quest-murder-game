@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rolle {{ username }}</title>
+        <meta name="description" content="Wir wollen AmongUs richtig spielen!" />
+        <meta name="authors" content="Nimuedaertya, Limira">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/styles/output.css') }}">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+	<!-- <script async defer language="JavaScript" type="text/javascript" src="{{ url_for('static', filename='src/scripts/sabotage.js')}}"></script> --->
+		<script async defer src="{{ url_for('static', filename='src/scripts/kill.js')}}"></script>
+		<script async defer src="{{ url_for('static', filename='src/scripts/dead.js')}}"></script>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='src/images/AmongUsFavIcon.ico') }}">
+
+	</head>   
+  <body>
+	{% if data.role.parent_role is defined %}
+	<h2> Hallo {{ username }} ^-^ <br> du bist {{ data.role.name }} ({{ data.role.parent_role }}). </h2>
+	{% else %}
+    <h2> Hallo {{ username }} ^-^ <br> du bist {{ data.role.name }}. </h2>
+	{% endif %}
+
+	<p> {{ data.role.description }} </p>
+	
+	<h3> Weitere Informationen: </h3>
+
+	{% if data.other_role_info is defined %}
+	    {% for role in data.other_role_info %}
+	<p> Folgende Leute sind {{ role }}: </p> 
+	<ul>
+		{% for person in data.other_role_info[role].entities %}
+			<li>  {{ person }}  </li> 
+		{% endfor %}
+	</ul>
+	    {% endfor %}
+	</ul>
+	{% endif %}
+
+	<h3> Du hast folgende Aufgaben: </h3> 
+		<ul>
+			{% for task in data.tasks %}
+				{% if task.task_done == true %}
+				<li class="completed">{{ task.name }} </li>
+				{% else %}
+				<li>{{ task.name }}  </li> 
+				{% endif %}
+			{% endfor %}
+		</ul>
+
+	<button onclick="document.location='../../tasks'">Zum Aufgabenstatus</button> 
+	<button onclick="document.location='../../players'">Zur Spielerübersicht</button> 
+
+	{% if data.role.name == "Imposter" %}
+		<button id="kill" class="ready">💀 Kill</button>
+		<label class="hidden toplabel" id="killcount" for="kill"></label>
+	{% endif %}
+
+	<button id="dead_button" class="ready" value='dead'>Dead</button>
+	
+
+  </body>
+</html>

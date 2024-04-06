@@ -1,0 +1,59 @@
+Crewmate:
+  name: Crewmate
+  description: "Complete all tasks or vote all Imposters out!"
+  visible_to: []
+  has_tasks: true
+  amount: 3
+  chance: 100
+Sheriff:
+  name: Sheriff
+  description: "Complete all tasks or vote all Imposters out. You can kill someone the same way the Imposters can."
+  visible_to: []
+  has_tasks: true
+  parent_role: Crewmate
+  amount: 2
+  chance: 100
+Doctor:
+  name: Doctor
+  description: "Complete all tasks or vote all Imposters out. If you see a dead person sitting on the ground, you can ask how many seconds ago the kill happened."
+  visible_to: []
+  has_tasks: true
+  parent_role: Crewmate
+  amount: 2
+  chance: 100
+Lawyer:
+  name: Lawyer
+  description: "You win with the Imposters if alive or if all tasks have been done. The Imposters dont know you!"
+  visible_to: []
+  has_tasks: true
+  parent_role: Crewmate
+  amount: 0
+  chance: 100
+Imposter:
+  name: Imposter
+  description: "Kill all Crewmates"
+  visible_to:
+    - Imposter
+    - Lawyer
+    - Vampire
+  has_tasks: false
+  amount: 1
+  chance: 100
+Vampire:
+  name: Vampire
+  description: "Kill all Crewmates. Your special ability allows you to show a player a peace sign, which means that he dies in 20 seconds. Those seconds have to be counted by the dying player. A Meeting kills him at call out."
+  visible_to:
+    - Imposter
+    - Lawyer
+    - Vampir
+  has_tasks: false
+  parent_role: Imposter
+  amount: 1
+  chance: 100
+Jackal:
+  name: Jackal
+  description: "You are a third Party in the Game! Kill everybody to win."
+  visible_to: []
+  has_tasks: false
+  amount: 1
+  chance: 100
