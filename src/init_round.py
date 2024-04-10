@@ -118,7 +118,7 @@ def distribute_tasks(players, tasks):
         for task_id, task in task_items:
 
             tmp_task = {}
-            players[player]['tasks'].append(task)
+            players[player]['tasks'].append(copy.deepcopy(task))
             
             if players[player]['role']['has_tasks']:
                 tasks[task_id]['max_existence'] -= 1
