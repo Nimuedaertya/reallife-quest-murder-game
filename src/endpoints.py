@@ -47,7 +47,6 @@ class Round(FlaskView):
     players, visible_to_data = distribute_roles(players, roles)
     players = distribute_tasks(players, tasks_spec)
     tasks = tasks_spec['no_prep'] | tasks_spec['once_prep'] | tasks_spec['always_prep']
-    count_done_tasks = 0
     data = players
     
     @route('/', methods=['GET', 'POST'])
@@ -98,15 +97,7 @@ class Round(FlaskView):
     @route('/tasks/<task>', methods = ['POST', 'GET'])
     def data_tasks(self, task):
         if request.method == 'GET':
-            
-            task_info = copy.deepcopy(self.tasks[task])
-            if task == "task11wuff":
-                ls = TASKS_07_DRAW_LIST
-                el = sample(ls, 6)
-                task_info['description'] += "\n" + str(el)
-            
-            # basic task return
-            return render_template(task_info['path_to_template'], task= task_info)
+            return render_template("task_basic.html", task=self.tasks[task])
 
         if request.method == 'POST':
 
@@ -115,8 +106,6 @@ class Round(FlaskView):
             if name in self.data and task in [x['id'] for x in self.data[name]['tasks']]:
                 for i in self.data[name]['tasks']:
                     if i['id'] == task:
-                        if not i['task_done']:
-                            self.count_done_tasks += 1
                         i['task_done'] = True
                         break
                 return render_template(PATH_TEMPLATE_SUCCESSFUL_TASK, name = name)

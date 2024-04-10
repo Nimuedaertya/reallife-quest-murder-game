@@ -118,10 +118,6 @@ def distribute_tasks(players, tasks):
         for task_id, task in task_items:
 
             tmp_task = {}
-            #tmp_task['id'] = task['id']
-            #tmp_task['name'] = task['name']
-            #tmp_task['description'] = task['description']
-            #tmp_task['task_done'] = False
             players[player]['tasks'].append(task)
             
             if players[player]['role']['has_tasks']:
