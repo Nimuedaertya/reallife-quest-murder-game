@@ -1,13 +1,10 @@
 # imports
 import copy
+import static_variables as const
 import logging as log
 
 # specific imports
 from random import randint, shuffle
-
-# statics
-TASKS_PER_PLAYER = 7
-TASKS_SlIGHT_RANDOMNESS = True
 
 ###
 # functions
@@ -104,8 +101,8 @@ def distribute_tasks(players, tasks):
     players = dict(tmp_list)
     for player in players:
 
-        counter = TASKS_PER_PLAYER
-        if TASKS_SlIGHT_RANDOMNESS:
+        counter = const.TASKS_PER_PLAYER
+        if const.TASKS_SlIGHT_RANDOMNESS:
             if randint(0,10) > 8:
                 counter -= 1
 

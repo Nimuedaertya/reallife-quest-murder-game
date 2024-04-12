@@ -4,8 +4,10 @@ import yaml
 import logging as log
 
 # specific imports
+from os import listdir
+from os.path import isfile, join
 from schematics.exceptions import DataError, ValidationError
-from static_variables import PATH_YAML_PLAYERS, PATH_YAML_ROLES, PATH_YAML_TASKS_NO_PREP, PATH_YAML_TASKS_ONCE_PREP, PATH_YAML_TASKS_ALWAYS_PREP, PATH_TEMPLATE_TASKS_DEFAULT
+from static_variables import PATH_YAML_PLAYERS, PATH_YAML_ROLES, PATH_YAML_TASK_DIR, PATH_TEMPLATE_TASKS_DEFAULT
 from schematics.models import Model
 from schematics.types import StringType, BooleanType, ListType, IntType, DictType, ModelType, BaseType
 
@@ -58,14 +60,28 @@ def load_roles():
 
 
 def load_tasks():
-    """Load task yaml file from static path"""
+    """Load task yaml files from static directory"""
 
-    tasks_no_prep = load_yaml(PATH_YAML_TASKS_NO_PREP)
-    tasks_once_prep = load_yaml(PATH_YAML_TASKS_ONCE_PREP)
-    tasks_always_prep = load_yaml(PATH_YAML_TASKS_ALWAYS_PREP)
+    all_files = [f for f in listdir(PATH_YAML_TASK_DIR) if isfile(join(PATH_YAML_TASK_DIR, f))]
+    print(all_files)
+    tmp = {}
+    for file in all_files:
 
-    tmp = tasks_no_prep | tasks_once_prep | tasks_always_prep
-    error = False
+        # check if file has yaml suffix
+        filename_splitted = file.split(".")
+        if len(filename_splitted) < 2 or not ("yml" in filename_splitted[-1]):
+            log.warning("Invalid task file name (has to end with .yml): {}".format(file))
+            continue
+        
+        # load yaml file
+        file_path = join(PATH_YAML_TASK_DIR, file)
+        file_tasks = load_yaml(file_path)
+        log.debug("Loading task file: {}".format(file_path))
+
+        # update task dictionary with tasks
+        tmp = tmp | file_tasks
+
+    # validation for each task
     for identifier, task in list(tmp.items()):
         task['id'] = identifier
         try:
@@ -74,12 +90,9 @@ def load_tasks():
             tmp[identifier] = validator_obj.serialize()
         except (DataError, ValidationError) as e:
             log.error("Task validation failed at task '{}' with error: {}".format(id, e))
-            error = True
+            exit(-1)
     
-    if error:
-        exit(-1)
     log.info("Tasks validated successfully")
-
     return tmp
 
 def load_yaml(path):
