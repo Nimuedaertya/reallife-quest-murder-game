@@ -96,8 +96,6 @@ class Round(FlaskView):
     @route('/tasks/<task>', methods = ['POST', 'GET'])
     def data_tasks(self, task):
         if request.method == 'GET':
-            print(self.tasks.keys())
-            print(self.tasks[task].keys())
             return render_template(self.tasks[task]['path_to_template'], task=self.tasks[task])
 
         if request.method == 'POST':
