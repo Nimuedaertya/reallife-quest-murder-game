@@ -42,11 +42,10 @@ css = Bundle(PATH_CSS_INPUT, output=PATH_CSS_OUTPUT)
 class Round(FlaskView):
     
     roles = load_roles()
-    tasks_spec = load_tasks()
+    tasks = load_tasks()
     players = load_players()
     players, visible_to_data = distribute_roles(players, roles)
-    players = distribute_tasks(players, tasks_spec)
-    tasks = tasks_spec['no_prep'] | tasks_spec['once_prep'] | tasks_spec['always_prep']
+    players = distribute_tasks(players, tasks)
     data = players
     
     @route('/', methods=['GET', 'POST'])
@@ -97,7 +96,9 @@ class Round(FlaskView):
     @route('/tasks/<task>', methods = ['POST', 'GET'])
     def data_tasks(self, task):
         if request.method == 'GET':
-            return render_template("task_basic.html", task=self.tasks[task])
+            print(self.tasks.keys())
+            print(self.tasks[task].keys())
+            return render_template(self.tasks[task]['path_to_template'], task=self.tasks[task])
 
         if request.method == 'POST':
 

@@ -99,7 +99,6 @@ def distribute_roles(players, roles):
 
 def distribute_tasks(players, tasks):
     
-    tasks = tasks['no_prep'] | tasks['once_prep'] | tasks['always_prep']
     tmp_list = list(players.items())
     shuffle(tmp_list)
     players = dict(tmp_list)

@@ -1,10 +1,11 @@
 # imports
+import copy
 import yaml
 import logging as log
 
 # specific imports
 from schematics.exceptions import DataError, ValidationError
-from static_variables import PATH_YAML_PLAYERS, PATH_YAML_ROLES, PATH_YAML_TASKS_NO_PREP, PATH_YAML_TASKS_ONCE_PREP, PATH_YAML_TASKS_ALWAYS_PREP
+from static_variables import PATH_YAML_PLAYERS, PATH_YAML_ROLES, PATH_YAML_TASKS_NO_PREP, PATH_YAML_TASKS_ONCE_PREP, PATH_YAML_TASKS_ALWAYS_PREP, PATH_TEMPLATE_TASKS_DEFAULT
 from schematics.models import Model
 from schematics.types import StringType, BooleanType, ListType, IntType, DictType, ModelType, BaseType
 
@@ -22,6 +23,7 @@ def load_players():
         try:
             validator_obj = PlayerModel(player)
             validator_obj.validate()
+            players[tmp] = validator_obj.serialize()
         except (DataError, ValidationError) as e:
             log.error("Task validation failed at player '{}' with error: {}".format(tmp, e))
             error = True
@@ -43,6 +45,7 @@ def load_roles():
         try:
             validator_obj = RoleModel(role)
             validator_obj.validate()
+            roles[tmp] = validator_obj.serialize()
         except (DataError, ValidationError) as e:
             log.error("Task validation failed at role '{}' with error: {}".format(tmp, e))
             error = True
@@ -63,11 +66,12 @@ def load_tasks():
 
     tmp = tasks_no_prep | tasks_once_prep | tasks_always_prep
     error = False
-    for id, task in tmp.items():
-        task['id'] = id
+    for identifier, task in list(tmp.items()):
+        task['id'] = identifier
         try:
             validator_obj = TaskModel(task)
             validator_obj.validate()
+            tmp[identifier] = validator_obj.serialize()
         except (DataError, ValidationError) as e:
             log.error("Task validation failed at task '{}' with error: {}".format(id, e))
             error = True
@@ -76,12 +80,7 @@ def load_tasks():
         exit(-1)
     log.info("Tasks validated successfully")
 
-    tasks = {}
-    tasks["no_prep"] = tasks_no_prep
-    tasks["once_prep"] = tasks_once_prep
-    tasks["always_prep"] = tasks_always_prep
-
-    return tasks
+    return tmp
 
 def load_yaml(path):
     """Load yaml file from path"""
@@ -116,4 +115,4 @@ class TaskModel(Model):
     description = StringType(required=True)
     max_existence = IntType(required=True)
     task_done = BooleanType(default=False, choices=[False, True])
-    path_to_template = StringType(default="task_basic.html")
+    path_to_template = StringType(default=PATH_TEMPLATE_TASKS_DEFAULT)
