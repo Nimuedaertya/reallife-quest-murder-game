@@ -98,7 +98,6 @@ def distribute_roles(players, roles):
 
 def distribute_tasks(players, tasks):
     
-    tasks = tasks['no_prep'] | tasks['once_prep'] | tasks['always_prep']
     tmp_list = list(players.items())
     shuffle(tmp_list)
     players = dict(tmp_list)
@@ -117,11 +116,7 @@ def distribute_tasks(players, tasks):
         for task_id, task in task_items:
 
             tmp_task = {}
-            #tmp_task['id'] = task['id']
-            #tmp_task['name'] = task['name']
-            #tmp_task['description'] = task['description']
-            #tmp_task['task_done'] = False
-            players[player]['tasks'].append(task)
+            players[player]['tasks'].append(copy.deepcopy(task))
             
             if players[player]['role']['has_tasks']:
                 tasks[task_id]['max_existence'] -= 1
