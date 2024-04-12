@@ -23,13 +23,13 @@
 
 	<p> {{ data.role.description }} </p>
 	
-	<h3> Weitere Informationen: </h3>
 
 	{% if data.other_role_info is defined %}
+	<h3> Weitere Informationen: </h3>
 	    {% for role in data.other_role_info %}
 	<p> Folgende Leute sind {{ role }}: </p> 
 	<ul>
-		{% for person in data.other_role_info[role].entities %}
+                {% for person in data.other_role_info[role].entities %}
 			<li>  {{ person }}  </li> 
 		{% endfor %}
 	</ul>

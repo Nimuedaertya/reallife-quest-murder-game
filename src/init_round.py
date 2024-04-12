@@ -15,6 +15,7 @@ TASKS_SlIGHT_RANDOMNESS = True
 
 def distribute_roles(players, roles):
     role_pool = []
+    visible_to_data = {}
 
     for role in roles:
         
@@ -25,7 +26,6 @@ def distribute_roles(players, roles):
             log.debug("Role with higher existence trimmed to <= 100")
  
         # show person to other roles
-        visible_to_data = {}
         if len(roles[role]['visible_to']) > 0:
             visible_to = roles[role]['visible_to']
             visible_to_data[role] = {'show_to': visible_to, 'entities': []}
@@ -79,14 +79,13 @@ def distribute_roles(players, roles):
         # populate visibility of roles
         got_role = player['role']['name']
         if got_role in list(visible_to_data.keys()):
-            visible_to_data[role]['entities'].append(player['name'])
+            visible_to_data[got_role]['entities'].append(player['name'])
     
     # add visibility of roles to player_data
     for index in range(len(players.keys())):
         player = players[list(players.keys())[index]]
         got_role = player['role']['name']
         for role, role_data in visible_to_data.items():
-            print(role_data['show_to'], got_role)
             if got_role in role_data['show_to']:
                 if 'other_role_info' in player.keys():
                     player['other_role_info'].update({role: role_data})
