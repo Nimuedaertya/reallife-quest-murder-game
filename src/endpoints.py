@@ -2,6 +2,7 @@
 import argparse
 import logging as log
 import copy
+import static_variables as const
 
 # specific impors
 from flask import url_for, Flask, render_template, request, redirect, jsonify
@@ -17,15 +18,6 @@ from random import sample
 
 ENDPOINT_USERS = '/user'
 ENDPOINT_ADMIN = '/admin'
-PATH_TEMPLATE_INDEX = 'index.html'
-PATH_TEMPLATE_PLAYER_INFO = 'player_info.html'
-PATH_TEMPLATE_PLAYERS = 'players.html'
-PATH_TEMPLATE_SUCCESSFUL_TASK = 'successful_task.html'
-PATH_TEMPLATE_FAILED_TASK = 'try_again_task.html'
-PATH_CSS_INPUT = 'src/input.css'
-PATH_CSS_OUTPUT = 'src/styles/output.css'
-KTIMER = 20 # XXX
-TASKS_07_DRAW_LIST = ["Hund", "Heuballen", "Haus", "Ziege", "Frosch", "Pferd", "Vase", "Blumen", "Rosenstrauch", "Bücherregal", "Schachbrett", "Bett", "Essen", "Palme"]
 
 ###
 # globals
@@ -33,7 +25,7 @@ TASKS_07_DRAW_LIST = ["Hund", "Heuballen", "Haus", "Ziege", "Frosch", "Pferd", "
 
 app = Flask(__name__)
 assets = Environment(app)
-css = Bundle(PATH_CSS_INPUT, output=PATH_CSS_OUTPUT)
+css = Bundle(const.PATH_CSS_INPUT, output=const.PATH_CSS_OUTPUT)
 
 ###
 # classes
@@ -51,7 +43,7 @@ class Round(FlaskView):
     @route('/', methods=['GET', 'POST'])
     def index(self):
         if request.method == 'GET':
-            return render_template(PATH_TEMPLATE_INDEX)
+            return render_template(const.PATH_TEMPLATE_INDEX)
 
         if request.method == 'POST':
             user = request.form['User']
@@ -72,7 +64,7 @@ class Round(FlaskView):
             if self.data[player]['dead'] == False:
                 alive += 1
 
-        return render_template(PATH_TEMPLATE_PLAYERS, number_all=all_players, number_alive=alive)
+        return render_template(const.PATH_TEMPLATE_PLAYERS, number_all=all_players, number_alive=alive)
 
 
 
@@ -85,7 +77,7 @@ class Round(FlaskView):
 
             user_data = self.data[username]
 
-            return render_template(PATH_TEMPLATE_PLAYER_INFO, username=username, data=user_data)
+            return render_template(const.PATH_TEMPLATE_PLAYER_INFO, username=username, data=user_data)
 
         if request.method == 'POST':
             dead_bool = request.form['dead_button']
@@ -107,10 +99,10 @@ class Round(FlaskView):
                     if i['id'] == task:
                         i['task_done'] = True
                         break
-                return render_template(PATH_TEMPLATE_SUCCESSFUL_TASK, name = name)
+                return render_template(const.PATH_TEMPLATE_SUCCESSFUL_TASK, name = name)
 
             # Default return
-            return render_template(PATH_TEMPLATE_FAILED_TASK)
+            return render_template(const.PATH_TEMPLATE_FAILED_TASK)
 
 
     @route('/tasks', methods = ['GET'])
@@ -131,7 +123,7 @@ class Round(FlaskView):
 
     @route('/getTimer/', methods=['POST'])
     def getTimer(self):
-        return jsonify({'kTimer': KTIMER})
+        return jsonify({'kTimer': const.KTIMER})
 
 
     @route('/killTime/<user>', methods=['POST'])
@@ -141,7 +133,7 @@ class Round(FlaskView):
             self.data[user]['kTimeStamp'] = int(timeStamp)
         else:
             self.data[user]['kTimeStamp'] = False
-        return str(KTIMER)
+        return str(const.KTIMER)
 
 
     @route('/kill/<user>',methods=['POST'])
