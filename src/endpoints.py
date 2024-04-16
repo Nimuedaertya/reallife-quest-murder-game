@@ -6,6 +6,7 @@ import static_variables as const
 # specific impors
 from flask import Flask, render_template, request, redirect, jsonify
 from flask_classful import FlaskView, route
+from flask_sock import Sock
 from flask_assets import Bundle, Environment
 from loading import load_roles, load_tasks, load_players
 from init_round import distribute_roles, distribute_tasks
@@ -24,6 +25,7 @@ ENDPOINT_ADMIN = '/admin'
 app = Flask(__name__)
 assets = Environment(app)
 css = Bundle(const.PATH_CSS_INPUT, output=const.PATH_CSS_OUTPUT)
+sock = Sock(app)
 
 ###
 # classes
@@ -179,4 +181,10 @@ if __name__ == '__main__':
     # start server normally on localhost
     else:
         log.info("Local server will be started")
-        app.run(debug=True)
+        app.run(debug = True)
+
+@sock.route('/notes')
+def notes(sock):
+    while True:
+        data = sock.receive()
+        sock.send(data)

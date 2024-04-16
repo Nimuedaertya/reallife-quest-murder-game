@@ -8,6 +8,8 @@
         <meta name="authors" content="Nimuedaertya, Limira">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/styles/output.css') }}">
 		<link rel="shortcut icon" href="{{ url_for('static', filename='src/images/AmongUsFavIcon.ico') }}">
+		<script async defer src="{{ url_for('static', filename='src/scripts/notifications.js')}}"></script>
+
     </head>   
 	<header>
 		<h2>Willkommen bei Among US in Realife, </h2>
@@ -17,6 +19,7 @@
 			<input type = "submit" value = "Submit" />
 		</form>
 		<p class="botlabel">Um Mitzumachen gebe hier deinen Namen ein!</p>
+		<button id="enable" class="process">Benachrichtigungen erhalten</button>
 	</header>
     <body>
         <h3>Regeln:</h3>
