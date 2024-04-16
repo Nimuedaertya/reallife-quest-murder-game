@@ -77,7 +77,11 @@ def distribute_roles(players, roles):
         got_role = player['role']['name']
         if got_role in list(visible_to_data.keys()):
             visible_to_data[got_role]['entities'].append(player['name'])
-    
+
+    for role in list(visible_to_data):
+        if len(visible_to_data[role]['entities']) == 0:
+            visible_to_data.pop(role)
+
     # add visibility of roles to player_data
     for index in range(len(players.keys())):
         player = players[list(players.keys())[index]]
@@ -87,7 +91,22 @@ def distribute_roles(players, roles):
                 if 'other_role_info' in player.keys():
                     player['other_role_info'].update({role: role_data})
                 else:
-                    player['other_role_info'] = {role: role_data}
+                    player['other_role_info'] = {role: copy.deepcopy(role_data)}
+
+    # remove self name and empty groups
+    for player in players:
+        if 'other_role_info' in players[player]:
+            print(players[player]['other_role_info'])
+
+            # iterate through role visibility until own name found
+            for role in players[player]['other_role_info']:
+                for tmp in players[player]['other_role_info'][role]['entities']:
+                    if tmp == players[player]['name']:
+                        players[player]['other_role_info'][role]['entities'].remove(players[player]['name'])
+                        break
+                else:
+                    continue
+                break
 
     log.info("Distributed roles")
     return players, visible_to_data
