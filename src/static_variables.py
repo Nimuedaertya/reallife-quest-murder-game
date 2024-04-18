@@ -5,6 +5,7 @@ PATH_YAML_PLAYERS = "config/players.yml"
 PATH_YAML_ROLES = "config/roles.yml"
 PATH_YAML_TASK_DIR = "config/tasks/"
 PATH_TEMPLATE_TASKS_DEFAULT = "task_basic.html"
+PATH_TEMPLATE_ADMIN = "admin.html"
 PATH_TEMPLATE_INDEX = 'index.html'
 PATH_TEMPLATE_PLAYER_INFO = 'player_info.html'
 PATH_TEMPLATE_PLAYERS = 'players.html'

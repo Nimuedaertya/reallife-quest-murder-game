@@ -16,6 +16,7 @@ from init_round import distribute_roles, distribute_tasks
 
 ENDPOINT_USERS = '/user'
 ENDPOINT_ADMIN = '/admin'
+ENDPOINT_ADMIN_JSON = '/adminjson'
 
 ###
 # globals
@@ -50,6 +51,10 @@ class Round(FlaskView):
 
     @route(ENDPOINT_ADMIN, methods=['GET'])
     def admin(self):
+        return render_template(const.PATH_TEMPLATE_ADMIN, data=self.data)
+
+    @route(ENDPOINT_ADMIN_JSON, methods=['GET'])
+    def adminjson(self):
         return self.data
 
     @route('/players', methods=['GET'])

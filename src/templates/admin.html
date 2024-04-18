@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rolle {{ username }}</title>
+        <meta name="description" content="Wir wollen AmongUs richtig spielen!" />
+        <meta name="authors" content="Nimuedaertya, Limira">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/styles/output.css') }}">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+	<!-- <script async defer language="JavaScript" type="text/javascript" src="{{ url_for('static', filename='src/scripts/sabotage.js')}}"></script> --->
+		<link rel="shortcut icon" href="{{ url_for('static', filename='src/images/AmongUsFavIcon.ico') }}">
+
+	</head>   
+  <body>
+	<h2> Admin page </h2>
+
+	<h3> Player overview </h3>
+	<p> abc </p>
+	
+	<p> List: </p> 
+	<ul>
+			<li> a </li> 
+			<li> b </li> 
+	</ul>
+
+	<h3> Du hast folgende Aufgaben: </h3> 
+		<ul>
+			{% for _ in data %}
+				<li class="completed"> bac </li>
+			{% endfor %}
+		</ul>
+
+  </body>
+</html>
