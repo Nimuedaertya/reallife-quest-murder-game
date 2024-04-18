@@ -123,12 +123,14 @@ label {
 .ready {
   background-color: greenyellow;
   border-color: green;
+  margin-top: 0.8em;
 }
 
 .ready:hover {
   color: greenyellow;
   background-color: black;
   border: 2px solid greenyellow;
+  margin-top: 0.8em;
 }
 
 .process {

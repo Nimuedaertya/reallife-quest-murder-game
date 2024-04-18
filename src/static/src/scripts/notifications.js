@@ -1,5 +1,3 @@
-const notificationBtn = document.getElementById("enable");
-
 function askNotificationPermission() {
   // Check if the browser supports notifications
   if (!("Notification" in window)) {
@@ -12,10 +10,6 @@ function askNotificationPermission() {
   });
 }
 
-if (notificationBtn) {
-  notificationBtn.addEventListener("click", askNotificationPermission);
-}
-
-if (notificationBtn && Notification.permission == "granted") {
-  notificationBtn.style.display = "none";
+if (Notification.permission !== "granted") {
+  askNotificationPermission();
 }
