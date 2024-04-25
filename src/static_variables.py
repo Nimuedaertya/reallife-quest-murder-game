@@ -12,7 +12,9 @@ PATH_TEMPLATE_SUCCESSFUL_TASK = 'successful_task.html'
 PATH_TEMPLATE_FAILED_TASK = 'try_again_task.html'
 PATH_CSS_INPUT = 'src/input.css'
 PATH_CSS_OUTPUT = 'src/styles/output.css'
-KTIMER = 20
+PATH_SSL_CERT = 'cert.pem'
+PATH_SSL_KEY = 'key.pem'
+KTIMER = 20 # XXX
 
 ###
 # tasks

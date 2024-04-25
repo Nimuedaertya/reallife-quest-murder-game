@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# create certs
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 2 -nodes -subj "/C=XX/ST=StateName/L=CityName/O=CompanyName/OU=CompanySectionName/CN=CommonNameOrHostname"
+
 # https://stackoverflow.com/questions/29436275/how-to-prompt-for-yes-or-no-in-bash#29436423
 function yes_or_no {
     while true; do

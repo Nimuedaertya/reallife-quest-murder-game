@@ -198,8 +198,8 @@ if __name__ == '__main__':
     # need --public flag to be available in network
     if args.public:
         log.info("Public server will be started")
-        socketio.run(app, debug = True, host="0.0.0.0")
+        socketio.run(app, debug = True, host="0.0.0.0", ssl_context=(const.PATH_SSL_CERT, const.PATH_SSL_KEY))
     # start server normally on localhost
     else:
         log.info("Local server will be started")
-        socketio.run(app, debug = True)
+        socketio.run(app, debug = True, ssl_context=(const.PATH_SSL_CERT, const.PATH_SSL_KEY))
