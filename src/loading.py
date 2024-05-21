@@ -117,6 +117,7 @@ class RoleModel(Model):
     description = StringType(required=True)
     visible_to = ListType(StringType, default=[])
     has_tasks = BooleanType(default=True)
+    can_kill = BooleanType(default=False)
     parent_role = StringType()
     amount = IntType(required=True)
     chance = IntType(default=100) # in percent
