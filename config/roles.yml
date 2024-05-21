@@ -10,6 +10,7 @@ Sheriff:
   description: "Complete all tasks or vote all Imposters out. You can kill someone the same way the Imposters can."
   visible_to: []
   has_tasks: true
+  can_kill: true
   parent_role: Crewmate
   amount: 2
   chance: 100
@@ -37,6 +38,7 @@ Imposter:
     - Lawyer
     - Vampire
   has_tasks: false
+  can_kill: true
   amount: 1
   chance: 100
 Vampire:
@@ -47,6 +49,7 @@ Vampire:
     - Lawyer
     - Vampir
   has_tasks: false
+  can_kill: true
   parent_role: Imposter
   amount: 1
   chance: 100
@@ -55,5 +58,6 @@ Jackal:
   description: "You are a third Party in the Game! Kill everybody to win."
   visible_to: []
   has_tasks: false
+  can_kill: true
   amount: 1
   chance: 100
