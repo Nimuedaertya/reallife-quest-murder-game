@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "reallife-quest-murder-game"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^3.0.3"
+pyyaml = "^6.0.1"
+schematics = "^2.1.1"
+flask-classful = "^0.16.0"
+flask-assets = "^2.1.0"
+argparse = "^1.4.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.1"
+flake8 = "^7.0.0"
+pylint = "^3.2.2"
+coverage = "^7.5.1"
+
+
+[tool.coverage.run]
+branch = true
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -7,4 +7,4 @@ rm -rf qr_codes
 mkdir qr_codes
 
 # run script to create qr_codes
-python3 src/qr_codes.py
+poetry run python3 src/qr_codes.py

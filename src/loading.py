@@ -63,7 +63,6 @@ def load_tasks():
     """Load task yaml files from static directory"""
 
     all_files = [f for f in listdir(PATH_YAML_TASK_DIR) if isfile(join(PATH_YAML_TASK_DIR, f))]
-    print(all_files)
     tmp = {}
     for file in all_files:
 
@@ -121,6 +120,10 @@ class RoleModel(Model):
     parent_role = StringType()
     amount = IntType(required=True)
     chance = IntType(default=100) # in percent
+
+    def validate_parent_role(self, data, value):
+        if data['parent_role'] is None:
+            data.pop('parent_role')
 
 class TaskModel(Model):
     id = StringType(required=True)
