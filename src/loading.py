@@ -1,5 +1,4 @@
 # imports
-import copy
 import yaml
 import logging as log
 
@@ -9,17 +8,18 @@ from os.path import isfile, join
 from schematics.exceptions import DataError, ValidationError
 from static_variables import PATH_YAML_PLAYERS, PATH_YAML_ROLES, PATH_YAML_TASK_DIR, PATH_TEMPLATE_TASKS_DEFAULT
 from schematics.models import Model
-from schematics.types import StringType, BooleanType, ListType, IntType, DictType, ModelType, BaseType
+from schematics.types import StringType, BooleanType, ListType, IntType
 
 ###
 # functions
 ###
 
+
 def load_players():
     """Load player yaml file from static path"""
 
     players = load_yaml(PATH_YAML_PLAYERS)
-    
+
     error = False
     for tmp, player in players.items():
         try:
@@ -29,7 +29,7 @@ def load_players():
         except (DataError, ValidationError) as e:
             log.error("Task validation failed at player '{}' with error: {}".format(tmp, e))
             error = True
-    
+
     if error:
         exit(-1)
     log.info("Players validated successfully")
@@ -41,7 +41,7 @@ def load_roles():
     """Load roles yaml file from static path"""
 
     roles = load_yaml(PATH_YAML_ROLES)
-    
+
     error = False
     for tmp, role in roles.items():
         try:
@@ -51,7 +51,7 @@ def load_roles():
         except (DataError, ValidationError) as e:
             log.error("Task validation failed at role '{}' with error: {}".format(tmp, e))
             error = True
-    
+
     if error:
         exit(-1)
     log.info("Roles validated successfully")
@@ -71,7 +71,7 @@ def load_tasks():
         if len(filename_splitted) < 2 or not ("yml" in filename_splitted[-1]):
             log.warning("Invalid task file name (has to end with .yml): {}".format(file))
             continue
-        
+
         # load yaml file
         file_path = join(PATH_YAML_TASK_DIR, file)
         file_tasks = load_yaml(file_path)
@@ -88,11 +88,12 @@ def load_tasks():
             validator_obj.validate()
             tmp[identifier] = validator_obj.serialize()
         except (DataError, ValidationError) as e:
-            log.error("Task validation failed at task '{}' with error: {}".format(id, e))
+            log.error("Task validation failed at task '{}': {}".format(id, e))
             exit(-1)
-    
+
     log.info("Tasks validated successfully")
     return tmp
+
 
 def load_yaml(path):
     """Load yaml file from path"""
@@ -103,14 +104,17 @@ def load_yaml(path):
 
     return data
 
+
 ###
 # classes
 ###
 """Schematics classes for yaml input validation """
 
+
 class PlayerModel(Model):
     name = StringType(required=True)
     force_role = StringType(default=None)
+
 
 class RoleModel(Model):
     name = StringType(required=True, max_length=60)
@@ -119,11 +123,12 @@ class RoleModel(Model):
     has_tasks = BooleanType(default=True)
     parent_role = StringType()
     amount = IntType(required=True)
-    chance = IntType(default=100) # in percent
+    chance = IntType(default=100)
 
     def validate_parent_role(self, data, value):
         if data['parent_role'] is None:
             data.pop('parent_role')
+
 
 class TaskModel(Model):
     id = StringType(required=True)

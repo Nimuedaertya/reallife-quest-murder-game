@@ -1,5 +1,5 @@
 import loading
-#from src import loading
+
 
 def test_loading_players():
     loading.load_players()

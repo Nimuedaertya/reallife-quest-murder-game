@@ -1,16 +1,14 @@
 # imports
 import argparse
 import logging as log
-import copy
 import static_variables as const
 
 # specific impors
-from flask import url_for, Flask, render_template, request, redirect, jsonify
+from flask import Flask, render_template, request, redirect, jsonify
 from flask_classful import FlaskView, route
 from flask_assets import Bundle, Environment
 from loading import load_roles, load_tasks, load_players
 from init_round import distribute_roles, distribute_tasks
-from random import sample
 
 ###
 # statics
@@ -31,15 +29,16 @@ css = Bundle(const.PATH_CSS_INPUT, output=const.PATH_CSS_OUTPUT)
 # classes
 ###
 
+
 class Round(FlaskView):
-    
+
     roles = load_roles()
     tasks = load_tasks()
     players = load_players()
     players, visible_to_data = distribute_roles(players, roles)
     players = distribute_tasks(players, tasks)
     data = players
-    
+
     @route('/', methods=['GET', 'POST'])
     def index(self):
         if request.method == 'GET':
@@ -49,11 +48,9 @@ class Round(FlaskView):
             user = request.form['User']
             return redirect(ENDPOINT_USERS + '/' + user)
 
-
     @route(ENDPOINT_ADMIN, methods=['GET'])
     def admin(self):
         return self.data
-
 
     @route('/players', methods=['GET'])
     def players(self):
@@ -61,12 +58,10 @@ class Round(FlaskView):
         all_players = len(self.data.keys())
         alive = 0
         for player in self.data:
-            if self.data[player]['dead'] == False:
+            if self.data[player]['dead'] is False:
                 alive += 1
 
         return render_template(const.PATH_TEMPLATE_PLAYERS, number_all=all_players, number_alive=alive)
-
-
 
     @route(ENDPOINT_USERS + '/<username>', methods=['GET', 'POST'])
     def user(self, username):
@@ -84,8 +79,7 @@ class Round(FlaskView):
             self.data[username]['dead'] = dead_bool
             return "TOP"
 
-
-    @route('/tasks/<task>', methods = ['POST', 'GET'])
+    @route('/tasks/<task>', methods=['POST', 'GET'])
     def data_tasks(self, task):
         if request.method == 'GET':
             return render_template(self.tasks[task]['path_to_template'], task=self.tasks[task])
@@ -93,21 +87,20 @@ class Round(FlaskView):
         if request.method == 'POST':
 
             name = request.form['Name']
-            
+
             if name in self.data and task in [x['id'] for x in self.data[name]['tasks']]:
                 for i in self.data[name]['tasks']:
                     if i['id'] == task:
                         i['task_done'] = True
                         break
-                return render_template(const.PATH_TEMPLATE_SUCCESSFUL_TASK, name = name)
+                return render_template(const.PATH_TEMPLATE_SUCCESSFUL_TASK, name=name)
 
             # Default return
             return render_template(const.PATH_TEMPLATE_FAILED_TASK)
 
-
-    @route('/tasks', methods = ['GET'])
+    @route('/tasks', methods=['GET'])
     def task_overview(self,):
-        
+
         overall = 0
         completed = 0
 
@@ -117,14 +110,12 @@ class Round(FlaskView):
                 for task in self.data[player]['tasks']:
                     if task['task_done']:
                         completed += 1
-           
-        return render_template('tasks_overview.html', amount_tasks = overall, completed_tasks = completed)
 
+        return render_template('tasks_overview.html', amount_tasks=overall, completed_tasks=completed)
 
     @route('/getTimer/', methods=['POST'])
     def getTimer(self):
         return jsonify({'kTimer': const.KTIMER})
-
 
     @route('/killTime/<user>', methods=['POST'])
     def killT(self, user):
@@ -135,22 +126,20 @@ class Round(FlaskView):
             self.data[user]['kTimeStamp'] = False
         return str(const.KTIMER)
 
-
-    @route('/kill/<user>',methods=['POST'])
-    def kill(self, user):
+    @route('/kill/<user>', methods=['POST'])
+    def kill_post(self, user):
         if self.data[user]['kTimeStamp']:
             return jsonify({'going': True, 'timeStamp': self.data[user]['kTimeStamp']})
         else:
             return jsonify({'going': False, 'timeStamp': None})
 
-
     @route('/alive/<user>', methods=['GET'])
-    def kill(self, user):
+    def kill_get(self, user):
         return jsonify({'dead': self.data[user]['dead']})
 
 
 if __name__ == '__main__':
-    
+
     # read passed arguments
     parser = argparse.ArgumentParser(
             prog="Space Mafia IRL",
@@ -164,7 +153,7 @@ if __name__ == '__main__':
                         action='store_true')
 
     args = parser.parse_args()
-    
+
     # configure logger
     if args.verbose:
         log.basicConfig(format='[%(asctime)s] %(levelname)s: %(message)s', datefmt='%I:%M:%S %p', level=log.INFO)
@@ -174,20 +163,20 @@ if __name__ == '__main__':
         log.info("Verbose output.")
     else:
         log.basicConfig(format='[%(asctime)s] %(levelname)s: %(message)s', datefmt='%I:%M:%S %p')
-    
+
     # css
     assets.register("css", css)
     css.build()
 
     # create round object
-    Round.register(app, route_base = '/')
+    Round.register(app, route_base='/')
     game = Round()
 
     # need --public flag to be available in network
     if args.public:
         log.info("Public server will be started")
-        app.run(debug = True, host="0.0.0.0")
+        app.run(debug=True, host="0.0.0.0")
     # start server normally on localhost
     else:
         log.info("Local server will be started")
-        app.run(debug = True)
+        app.run(debug=True)

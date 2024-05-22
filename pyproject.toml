@@ -23,14 +23,14 @@ coverage = "^7.5.1"
 
 
 [tool.coverage.run]
-branch = true
+source = ["src/."]
 
 [tool.pytest.ini_options]
+addopts = "-p no:warnings"
 pythonpath = "src"
 minversion = "6.0"
-addopts = "-ra -q"
 testpaths = [
-    "tests",
+    "tests/",
 ]
 
 
