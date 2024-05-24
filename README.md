@@ -4,10 +4,10 @@ Simple explanation: Game works like AmongUs, but in reallife.
 
 ## Installation
 
-get poetry
+get poetry (is done in init.sh as well)
 ´pip install poetry´
 
-install dependencies
+install dependencies (is done in init.sh as well)
 ´poetry install´
 
 ## Usage
