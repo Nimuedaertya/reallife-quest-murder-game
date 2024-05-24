@@ -52,7 +52,15 @@ class TestDistributeRoles:
                     'chance': 100}
             }
 
-    def test_distribute_roles(self):
+    def test_distribute_roles_visible_to(self):
         players, visible_to = init.distribute_roles(self.players, self.roles)
 
+        assert len(visible_to) == 1
+        assert 'Imposter' in visible_to
+        assert 'entities' in visible_to['Imposter']
         assert visible_to['Imposter']['entities'][0] in [x['name'] for x in self.players.values()]
+
+    def test_distribute_roles_players(self):
+        players, visible_to = init.distribute_roles(self.players, self.roles)
+        
+        assert len(players) == len(self.players)
