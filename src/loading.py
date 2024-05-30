@@ -15,10 +15,13 @@ from schematics.types import StringType, BooleanType, ListType, IntType
 ###
 
 
-def load_players():
+def load_players(path=None):
     """Load player yaml file from static path"""
 
-    players = load_yaml(PATH_YAML_PLAYERS)
+    if path is None:
+        players = load_yaml(PATH_YAML_PLAYERS)
+    else:
+        players = load_yaml(path)
 
     error = False
     for tmp, player in players.items():
@@ -37,10 +40,13 @@ def load_players():
     return players
 
 
-def load_roles():
+def load_roles(path=None):
     """Load roles yaml file from static path"""
 
-    roles = load_yaml(PATH_YAML_ROLES)
+    if path is None:
+        roles = load_yaml(PATH_YAML_ROLES)
+    else:
+        roles = load_yaml(path)
 
     error = False
     for tmp, role in roles.items():
@@ -59,26 +65,29 @@ def load_roles():
     return roles
 
 
-def load_tasks():
+def load_tasks(path=None):
     """Load task yaml files from static directory"""
 
-    all_files = [f for f in listdir(PATH_YAML_TASK_DIR) if isfile(join(PATH_YAML_TASK_DIR, f))]
-    tmp = {}
-    for file in all_files:
+    if path is None:
+        all_files = [f for f in listdir(PATH_YAML_TASK_DIR) if isfile(join(PATH_YAML_TASK_DIR, f))]
+        tmp = {}
+        for file in all_files:
 
-        # check if file has yaml suffix
-        filename_splitted = file.split(".")
-        if len(filename_splitted) < 2 or not ("yml" in filename_splitted[-1]):
-            log.warning("Invalid task file name (has to end with .yml): {}".format(file))
-            continue
+            # check if file has yaml suffix
+            filename_splitted = file.split(".")
+            if len(filename_splitted) < 2 or not ("yml" in filename_splitted[-1]):
+                log.warning("Invalid task file name (has to end with .yml): {}".format(file))
+                continue
 
-        # load yaml file
-        file_path = join(PATH_YAML_TASK_DIR, file)
-        file_tasks = load_yaml(file_path)
-        log.debug("Loading task file: {}".format(file_path))
+            # load yaml file
+            file_path = join(PATH_YAML_TASK_DIR, file)
+            file_tasks = load_yaml(file_path)
+            log.debug("Loading task file: {}".format(file_path))
 
-        # update task dictionary with tasks
-        tmp = tmp | file_tasks
+            # update task dictionary with tasks
+            tmp = tmp | file_tasks
+    else:
+        tmp = load_yaml(path)
 
     # validation for each task
     for identifier, task in list(tmp.items()):

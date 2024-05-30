@@ -1,0 +1,4 @@
+taskdummy1:
+  name: dummy1_task
+  description: dummy1_task_desc
+  max_existence: 0
