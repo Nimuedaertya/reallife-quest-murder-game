@@ -51,7 +51,7 @@
 	<button onclick="document.location='../../tasks'">Zum Aufgabenstatus</button> 
 	<button onclick="document.location='../../players'">Zur Spielerübersicht</button> 
 
-	{% if data.role.name == "Imposter" %}
+	{% if data.role.can_kill == true %}
 		<button id="kill" class="ready">💀 Kill</button>
 		<label class="hidden toplabel" id="killcount" for="kill"></label>
 	{% endif %}

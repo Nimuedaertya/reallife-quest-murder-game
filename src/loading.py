@@ -130,6 +130,7 @@ class RoleModel(Model):
     description = StringType(required=True)
     visible_to = ListType(StringType, default=[])
     has_tasks = BooleanType(default=True)
+    can_kill = BooleanType(default=False)
     parent_role = StringType()
     amount = IntType(required=True)
     chance = IntType(default=100)
@@ -138,6 +139,10 @@ class RoleModel(Model):
         if data['parent_role'] is None:
             data.pop('parent_role')
 
+
+    def validate_parent_role(self, data, value):
+        if data['parent_role'] is None:
+            data.pop('parent_role')
 
 class TaskModel(Model):
     id = StringType(required=True)
