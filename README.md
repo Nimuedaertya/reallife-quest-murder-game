@@ -18,11 +18,13 @@ create roles, players, tasks
 ´vim config/tasks/*.yml´
 
 create qr-codes for tasks
-´sh init.sh´
+´./init.sh´
 
 start server and play
-´sh run.sh´
+´./run.sh´
 
 ## Development
 
 In progress
+Testing
+´./quality_assurance.sh´
