@@ -10,25 +10,26 @@ from random import randint, shuffle
 # functions
 ###
 
+
 def distribute_roles(players, roles):
     role_pool = []
     visible_to_data = {}
 
     for role in roles:
-        
+
         # some roles have only a chance to be there
         existence_chance = abs(roles[role]['chance'])
         if existence_chance > 100:
             existence_chance = existence_chance % 100
             log.debug("Role with higher existence trimmed to <= 100")
- 
+
         # show person to other roles
         if len(roles[role]['visible_to']) > 0:
             visible_to = roles[role]['visible_to']
             visible_to_data[role] = {'show_to': visible_to, 'entities': []}
 
         for _ in range(roles[role]['amount']):
-            
+
             role_pool.append(roles[role])
 
     if not len(role_pool) >= len(players.keys()):
@@ -40,7 +41,6 @@ def distribute_roles(players, roles):
     shuffle(role_pool)
     log.debug("Shuffled roles")
 
-    allocated_roles_index = []
     for player_ind in range(len(players.keys())):
         player = list(players.keys())[player_ind]
         if players[player]['force_role'] is not None:
@@ -51,20 +51,20 @@ def distribute_roles(players, roles):
                     role_pool[player_ind] = tmp
                     break
             else:
-                log.error("Forced role '{}' of player '{}' was not in role_pool".format(players[player]['force_role'], player))
+                log.error("Forced role '{}' of player '{}' not in roles".format(players[player]['force_role'], player))
                 exit()
-    
+
     # give each player a role
     for index in range(len(players.keys())):
         player = players[list(players.keys())[index]]
         player['kTimeStamp'] = False
         player['dead'] = False
-        
+
         # player has no forced role
         if 'role' not in player:
-            
+
             if 'parent_role' in role_pool[index]:
-                if existence_chance > randint(0,100):
+                if existence_chance > randint(0, 100):
                     player['role'] = role_pool[index]
                 else:
                     log.debug("Role discarded: {}".format(roles[role]['name']))
@@ -109,11 +109,12 @@ def distribute_roles(players, roles):
                 break
 
     log.info("Distributed roles")
+    print(visible_to_data)
     return players, visible_to_data
 
 
 def distribute_tasks(players, tasks):
-    
+
     tmp_list = list(players.items())
     shuffle(tmp_list)
     players = dict(tmp_list)
@@ -121,7 +122,7 @@ def distribute_tasks(players, tasks):
 
         counter = const.TASKS_PER_PLAYER
         if const.TASKS_SlIGHT_RANDOMNESS:
-            if randint(0,10) > 8:
+            if randint(0, 10) > 8:
                 counter -= 1
 
         players[player]['tasks'] = []
@@ -131,9 +132,8 @@ def distribute_tasks(players, tasks):
         shuffle(task_items)
         for task_id, task in task_items:
 
-            tmp_task = {}
             players[player]['tasks'].append(copy.deepcopy(task))
-            
+
             if players[player]['role']['has_tasks']:
                 tasks[task_id]['max_existence'] -= 1
 
@@ -143,7 +143,7 @@ def distribute_tasks(players, tasks):
             counter -= 1
             if counter == 0:
                 break
-        
+
         for task_id in to_be_deleted:
             tasks.pop(task_id)
     return players

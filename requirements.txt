@@ -1,6 +1,0 @@
-schematics
-flask
-flask_classful
-flask_assets
-argparse
-pyyaml
