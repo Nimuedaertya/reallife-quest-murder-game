@@ -14,7 +14,7 @@ PATH_CSS_INPUT = 'src/input.css'
 PATH_CSS_OUTPUT = 'src/styles/output.css'
 PATH_SSL_CERT = 'config/certs/cert.pem'
 PATH_SSL_KEY = 'config/certs/key.pem'
-KTIMER = 20 # XXX
+KTIMER = 20  # XXX
 
 ###
 # tasks
@@ -25,7 +25,8 @@ TASKS_SlIGHT_RANDOMNESS = True
 ###
 # secrets
 ###
-FLASK_SECRET_KEY = 'keep_me_secret!'  # this secret is only important for publicly used instances of this application (not recommended case)
+# this secret is only important for publicly used instances of this application (not recommended case)
+FLASK_SECRET_KEY = 'keep_me_secret!'
 
 ###
 # qr code
