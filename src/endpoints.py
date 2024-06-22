@@ -6,6 +6,7 @@ import static_variables as const
 # specific impors
 from flask import Flask, render_template, request, redirect, jsonify
 from flask_classful import FlaskView, route
+from flask_socketio import SocketIO, emit
 from flask_assets import Bundle, Environment
 from loading import load_roles, load_tasks, load_players
 from init_round import distribute_roles, distribute_tasks
@@ -24,6 +25,28 @@ ENDPOINT_ADMIN = '/admin'
 app = Flask(__name__)
 assets = Environment(app)
 css = Bundle(const.PATH_CSS_INPUT, output=const.PATH_CSS_OUTPUT)
+socketio = SocketIO(app)
+app.config['SECRET_KEY'] = const.FLASK_SECRET_KEY
+
+###
+# Websocket
+# documentation: https://flask-socketio.readthedocs.io/en/latest/getting_started.html#initialization
+###
+
+# The report Message which is send to all users on the Website on this time
+@socketio.on('report')
+def reporting(message):
+    emit('report', message['data'], broadcast=True)
+    print('received message: '+ str(message))
+
+@socketio.on('connect')
+def test_connect():
+    emit('my response', {'data': 'Connected'})
+
+@socketio.on('disconnect')
+def test_disconnect():
+    print('Client disconnected')
+
 
 ###
 # classes
@@ -175,8 +198,8 @@ if __name__ == '__main__':
     # need --public flag to be available in network
     if args.public:
         log.info("Public server will be started")
-        app.run(debug=True, host="0.0.0.0")
+        socketio.run(app, debug = True, host="0.0.0.0", ssl_context=(const.PATH_SSL_CERT, const.PATH_SSL_KEY))
     # start server normally on localhost
     else:
         log.info("Local server will be started")
-        app.run(debug=True)
+        socketio.run(app, debug = True, ssl_context=(const.PATH_SSL_CERT, const.PATH_SSL_KEY))

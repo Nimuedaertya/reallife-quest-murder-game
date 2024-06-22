@@ -164,3 +164,4 @@ cython_debug/
 
 # Generated files/folders
 qr_codes/
+config/certs/
