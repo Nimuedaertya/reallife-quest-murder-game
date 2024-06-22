@@ -26,7 +26,7 @@ app = Flask(__name__)
 assets = Environment(app)
 css = Bundle(const.PATH_CSS_INPUT, output=const.PATH_CSS_OUTPUT)
 socketio = SocketIO(app)
-app.config['SECRET_KEY'] = 'secret!'
+app.config['SECRET_KEY'] = const.FLASK_SECRET_KEY
 
 ###
 # Websocket
