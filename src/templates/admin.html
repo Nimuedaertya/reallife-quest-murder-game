@@ -14,22 +14,28 @@
 	</head>   
   <body>
 	<h2> Admin page </h2>
-
-	<h3> Player overview </h3>
-	<p> abc </p>
+		<br> <br>
+		<table class="table_admin">
+		<TR>
+		   <TD class="admin_tab_head">Player Name</TD>
+		   <TD class="admin_tab_head">Role</TD>
+		   <TD class="admin_tab_head"><SPAN>Alive</SPAN></TD>
+		   <TD class="admin_tab_head"><SPAN>Link</SPAN></TD>
+		</TR>
+		{% for player_id in data %}
+		{% set player = data[player_id]%}
+		<TR>
+		   <TD class="admin_tab">{{player.name}}</TD>
+		   <TD class="admin_tab">{{player.role.name}}</TD>
+		   {% if player.dead %}
+		   <TD class="admin_tab_bool_false">&times;</TD>
+		   {% else %}
+		   <TD class="admin_tab_bool_true">&#10004;</TD>
+		   {% endif %}
+		   <TD><button onclick="document.location='../user/{{player_id}}'">Spielerprofil</button> </TD>
+		</TR>
+		{% endfor %}
+		</table>
 	
-	<p> List: </p> 
-	<ul>
-			<li> a </li> 
-			<li> b </li> 
-	</ul>
-
-	<h3> Du hast folgende Aufgaben: </h3> 
-		<ul>
-			{% for _ in data %}
-				<li class="completed"> bac </li>
-			{% endfor %}
-		</ul>
-
   </body>
 </html>

@@ -181,3 +181,32 @@ label {
 .hidden {
   display: none;
 }
+
+.admin_tab {
+  font-size: 2em;
+}
+
+.admin_tab_bool_true {
+  color: green;
+  font-size: 2em;
+}
+
+.admin_tab_bool_false {
+  color: red;
+  font-size: 2em;
+}
+
+.admin_tab_head {
+  font-weight: bold;
+  font-size: 2em;
+  border: 2px solid;
+}
+
+.table_admin {
+  border: 2px solid;
+}
+
+th, td {
+  padding: 25px;
+  background-color: black;
+}
