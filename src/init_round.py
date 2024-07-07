@@ -96,7 +96,6 @@ def distribute_roles(players, roles):
     # remove self name and empty groups
     for player in players:
         if 'other_role_info' in players[player]:
-            print(players[player]['other_role_info'])
 
             # iterate through role visibility until own name found
             for role in players[player]['other_role_info']:
@@ -109,7 +108,6 @@ def distribute_roles(players, roles):
                 break
 
     log.info("Distributed roles")
-    print(visible_to_data)
     return players, visible_to_data
 
 
