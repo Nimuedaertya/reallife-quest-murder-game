@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Übersicht Aufgaben</title>
-        <meta name="description" content="Wir wollen AmongUs richtig spielen!" />
-        <meta name="authors" content="Nimuedaertya, Limira">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/styles/output.css') }}">
-    		<link rel="shortcut icon" href="{{ url_for('static', filename='src/images/AmongUsFavIcon.ico') }}">
-    </head>   
-  <body>
+{% extends "base_template.html" %}
+
+{% block title %} Overview Tasks {% endblock title %}
+
+{% block body %}
     <h2> Status erledigte Aufgaben ^-^ </h2>
     <p>  Existente Aufgaben: {{ amount_tasks }} </p>
     <p>  Erledigte Aufgaben: {{ completed_tasks }} </p>
     <button onclick="document.location='../'">Zur Startseite</button> 
-  </body>
-</html>
+	{{ super() }}
+{% endblock body %}

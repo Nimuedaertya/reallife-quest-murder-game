@@ -6,16 +6,20 @@
         <title>{% block title %}{% endblock title %}</title>
         <meta name="description" content="Wir wollen AmongUs richtig spielen!" />
         <meta name="authors" content="Nimuedaertya, Limira">
-		{% block css_files %}
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/styles/output.css') }}">
-		{% endblock css_files %}
-		{% block js_files %}
-		{% endblock js_files %}
+		  {% block css_files %}
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/styles/output.css') }}">
+		  {% endblock css_files %}
+		  {% block js_files %}
+		  {% endblock js_files %}
 		<link rel="shortcut icon" href="{{ url_for('static', filename='src/images/AmongUsFavIcon.ico') }}">
 
 	</head>   
+	<header>
+	  {% block header scoped %}
+	  {% endblock header %}
+	</header>
   <body>
-	{% block body %}
+	{% block body scoped %}
 	<button onclick="document.location='../../tasks'">Zum Aufgabenstatus</button> 
 	<button onclick="document.location='../../players'">Zur Spielerübersicht</button> 
 	{% endblock body %}
