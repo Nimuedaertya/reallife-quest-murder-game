@@ -4,7 +4,7 @@ import logging as log
 import static_variables as const
 
 # specific impors
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import Flask, render_template, request, redirect, jsonify, url_for
 from flask_classful import FlaskView, route
 from flask_socketio import SocketIO, emit
 from flask_assets import Bundle, Environment
@@ -52,7 +52,6 @@ def test_connect():
 def test_disconnect():
     print('Client disconnected')
 
-
 ###
 # classes
 ###
@@ -70,7 +69,7 @@ class Round(FlaskView):
     @route('/', methods=['GET', 'POST'])
     def index(self):
         if request.method == 'GET':
-            return render_template(const.PATH_TEMPLATE_INDEX)
+            return render_template(const.PATH_TEMPLATE_INDEX, links=url_for_links)
 
         if request.method == 'POST':
             user = request.form['User']
@@ -78,7 +77,7 @@ class Round(FlaskView):
 
     @route(ENDPOINT_ADMIN, methods=['GET'])
     def admin(self):
-        return render_template(const.PATH_TEMPLATE_ADMIN, data=self.data)
+        return render_template(const.PATH_TEMPLATE_ADMIN, data=self.data, links=url_for_links)
 
     @route(ENDPOINT_ADMIN_JSON, methods=['GET'])
     def adminjson(self):
@@ -93,7 +92,10 @@ class Round(FlaskView):
             if self.data[player]['dead'] is False:
                 alive += 1
 
-        return render_template(const.PATH_TEMPLATE_PLAYERS, number_all=all_players, number_alive=alive)
+        return render_template(const.PATH_TEMPLATE_PLAYERS,
+                               number_all=all_players,
+                               number_alive=alive,
+                               links=url_for_links)
 
     @route(ENDPOINT_USERS + '/<username>', methods=['GET', 'POST'])
     def user(self, username):
@@ -104,7 +106,10 @@ class Round(FlaskView):
 
             user_data = self.data[username]
 
-            return render_template(const.PATH_TEMPLATE_PLAYER_INFO, username=username, data=user_data)
+            return render_template(const.PATH_TEMPLATE_PLAYER_INFO,
+                                   username=username,
+                                   data=user_data,
+                                   links=url_for_links)
 
         if request.method == 'POST':
             dead_bool = request.form['dead_button']
@@ -114,7 +119,7 @@ class Round(FlaskView):
     @route('/tasks/<task>', methods=['POST', 'GET'])
     def data_tasks(self, task):
         if request.method == 'GET':
-            return render_template(self.tasks[task]['path_to_template'], task=self.tasks[task])
+            return render_template(self.tasks[task]['path_to_template'], task=self.tasks[task], links=url_for_links)
 
         if request.method == 'POST':
 
@@ -125,10 +130,10 @@ class Round(FlaskView):
                     if i['id'] == task:
                         i['task_done'] = True
                         break
-                return render_template(const.PATH_TEMPLATE_SUCCESSFUL_TASK, name=name)
+                return render_template(const.PATH_TEMPLATE_SUCCESSFUL_TASK, name=name, links=url_for_links)
 
             # Default return
-            return render_template(const.PATH_TEMPLATE_FAILED_TASK)
+            return render_template(const.PATH_TEMPLATE_FAILED_TASK, links=url_for_links)
 
     @route('/tasks', methods=['GET'])
     def task_overview(self,):
@@ -143,7 +148,10 @@ class Round(FlaskView):
                     if task['task_done']:
                         completed += 1
 
-        return render_template('tasks_overview.html', amount_tasks=overall, completed_tasks=completed)
+        return render_template('tasks_overview.html',
+                               amount_tasks=overall,
+                               completed_tasks=completed,
+                               links=url_for_links)
 
     @route('/getTimer/', methods=['POST'])
     def getTimer(self):
@@ -207,6 +215,12 @@ if __name__ == '__main__':
     # create round object
     Round.register(app, route_base='/')
     game = Round()
+
+    # set links for css and js files
+    global url_for_links
+    url_for_links['csslink'] = url_for('static', filename='src/styles/output.css')
+    url_for_links['jslink'] = url_for('static', filename='index.js')
+    url_for_links['iconlink'] = url_for('static', filename='src/images/AmongUsFavIcon.ico')
 
     # set pport
     port = const.DEFAULT_PORT
