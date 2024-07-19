@@ -2,6 +2,10 @@
 
 {% block title %} AmongUs-IRL {% endblock title %}
 
+{% block js_files %}
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock js_files %}
+
 {% block header %}
 		<h2>Willkommen beim Reallife-Quest-Murder-Game, </h2>
 		<form action="" method = "POST">
@@ -13,7 +17,9 @@
 {% endblock header %}
 
 {% block body %}
-	<body>
+		<button id="qr_code_button" class="ready">QR Code scannen</button>
+		<video id="qr-scanner-feed" class="qr-scanner hide-qr-scanner"></video>
+
         <h3>Regeln:</h3>
 			<p>
 				<ul>
@@ -40,5 +46,29 @@
 					<li>Ruft 'Meeting' wenn ihr jemand toten entdeckt</li>
 					<li>Auch wenn ihr Tot seid, solltet ihr noch Aufgaben machen!</li>
 			  </ul> 
-			</p>			
+			</p>
+
+
+		<script type="module">
+			import QrScanner from '{{ url_for('static', filename='src/scripts/libraries/qr-scanner.min.js')}}';
+
+			$(document).ready(function() {
+				const video = $('#qr-scanner-feed')
+
+				$('#qr_code_button').on('click', function () {
+					const qrScanner = new QrScanner(
+							video[0],
+							result => {
+								console.log(result.data)
+								window.location = encodeURI(result.data)
+							},
+							{ /* optional attributes */ },
+					);
+
+					$(video).removeClass('hide-qr-scanner')
+					$(this).addClass('hidden')
+					qrScanner.start();
+				})
+			});
+		</script>
 {% endblock body %}
