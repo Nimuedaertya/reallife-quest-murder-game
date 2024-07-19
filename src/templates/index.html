@@ -59,12 +59,6 @@
 				const video_elem = $('#qr-scanner-feed')
 
 				$('#qr_code_button').on('click', async function () {
-					try {
-						await navigator.mediaDevices.getUserMedia({video: true});
-					} catch (err) {
-						console.warn('Warn: ', err);
-						$(this).text(err)
-					}
 
 					const qrScanner = new QrScanner(
 							video_elem[0],
@@ -76,11 +70,9 @@
 							{ /* optional attributes */ },
 					);
 
-					QrScanner.listCameras(true)
-
-					//$(this).addClass('hidden')
-					$(video_elem).removeClass('hide-qr-scanner')
 					qrScanner.start();
+					$(this).addClass('hidden')
+					$(video_elem).removeClass('hide-qr-scanner')
 
 					qrScanner.hasFlash().then(hasFlash => {
 						if(hasFlash) {
