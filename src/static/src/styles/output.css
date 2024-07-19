@@ -208,9 +208,16 @@ label {
   border: 2px solid;
 }
 
+.qr-code-scanner-container {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .qr-scanner {
-  width: 80%;
-  max-width: 400px;
+  width: inherit;
   margin-top: 1.5em;
   border: 2px solid yellowgreen;
   border-radius: 8px;
