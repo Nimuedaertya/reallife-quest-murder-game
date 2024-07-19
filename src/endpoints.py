@@ -52,7 +52,6 @@ def test_connect():
 def test_disconnect():
     print('Client disconnected')
 
-
 ###
 # classes
 ###
@@ -93,7 +92,9 @@ class Round(FlaskView):
             if self.data[player]['dead'] is False:
                 alive += 1
 
-        return render_template(const.PATH_TEMPLATE_PLAYERS, number_all=all_players, number_alive=alive)
+        return render_template(const.PATH_TEMPLATE_PLAYERS,
+                               number_all=all_players,
+                               number_alive=alive)
 
     @route(ENDPOINT_USERS + '/<username>', methods=['GET', 'POST'])
     def user(self, username):
@@ -104,7 +105,9 @@ class Round(FlaskView):
 
             user_data = self.data[username]
 
-            return render_template(const.PATH_TEMPLATE_PLAYER_INFO, username=username, data=user_data)
+            return render_template(const.PATH_TEMPLATE_PLAYER_INFO,
+                                   username=username,
+                                   data=user_data)
 
         if request.method == 'POST':
             dead_bool = request.form['dead_button']
@@ -143,7 +146,9 @@ class Round(FlaskView):
                     if task['task_done']:
                         completed += 1
 
-        return render_template('tasks_overview.html', amount_tasks=overall, completed_tasks=completed)
+        return render_template('tasks_overview.html',
+                               amount_tasks=overall,
+                               completed_tasks=completed)
 
     @route('/getTimer/', methods=['POST'])
     def getTimer(self):

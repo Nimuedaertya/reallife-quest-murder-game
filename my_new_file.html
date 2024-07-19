@@ -1,8 +1,19 @@
-{% extends "base_template.html" %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title> AmongUs-IRL </title>
+        <meta name="description" content="Wir wollen AmongUs richtig spielen!" />
+        <meta name="authors" content="Nimuedaertya, Limira">
+		  
+		  
+		  
+		  
 
-{% block title %} AmongUs-IRL {% endblock title %}
-
-{% block header %}
+	</head>   
+	<header>
+	  
 		<h2>Willkommen beim Reallife-Quest-Murder-Game, </h2>
 		<form action="" method = "POST">
 			<label for="User">Name: </label>
@@ -10,9 +21,10 @@
 			<input type = "submit" value = "Submit" />
 		</form>
 		<p class="botlabel">Um mitzumachen gebe hier deinen Namen ein!</p>
-{% endblock header %}
 
-{% block body %}
+	</header>
+  <body>
+	
 	<body>
         <h3>Regeln:</h3>
 			<p>
@@ -41,4 +53,6 @@
 					<li>Auch wenn ihr Tot seid, solltet ihr noch Aufgaben machen!</li>
 			  </ul> 
 			</p>			
-{% endblock body %}
+
+  </body>
+</html>
