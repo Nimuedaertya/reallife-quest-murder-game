@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "reallife-quest-murder-game"
-version = "0.1.0"
+version = "1.0.0"
 description = ""
 authors = ["Nimuedaertya <saluneriya@googlemail.com>"]
 readme = "README.md"
