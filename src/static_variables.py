@@ -1,3 +1,5 @@
+DEFAULT_PORT = 5000
+
 ###
 # paths
 ###
