@@ -147,7 +147,7 @@ label {
 }
 
 .pause {
-  background-color: gray;
+  background-color: grey;
   border-color: darkgray;
   color: rgb(50, 50, 50);
   margin-top: 0.8em;
@@ -155,7 +155,7 @@ label {
 }
 
 .pause:hover {
-  background-color: gray;
+  background-color: grey;
   border-color: darkgray;
   color: rgb(50, 50, 50);
   margin-top: 0.8em;
@@ -206,6 +206,25 @@ label {
 
 .table_admin {
   border: 2px solid;
+}
+
+.qr-code-scanner-container {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.qr-scanner {
+  width: inherit;
+  margin-top: 1.5em;
+  border: 2px solid yellowgreen;
+  border-radius: 8px;
+}
+
+.hide-qr-scanner {
+  display: none;
 }
 
 th, td {

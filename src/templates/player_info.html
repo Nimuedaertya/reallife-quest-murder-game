@@ -3,7 +3,7 @@
 {% block title %} Rolle {{ username }} {% endblock title %}
 
 {% block js_files %}
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 	<!-- <script async defer language="JavaScript" type="text/javascript" src="{{ url_for('static', filename='src/scripts/sabotage.js')}}"></script> --->
 		<script async defer src="{{ url_for('static', filename='src/scripts/kill.js')}}"></script>
@@ -21,7 +21,7 @@
 	{% endif %}
 
 	<p> {{ data.role.description }} </p>
-	
+
 	{% if data.other_role_info is defined %}
 	<h3> Weitere Informationen: </h3>
 	    {% for role in data.other_role_info %}
@@ -54,8 +54,10 @@
 
 	<button id="dead_button" class="ready" value='dead'>Dead</button>
 
-	<button id="report" class="ready">Report</button>
-	
+	{% if meta_data.https %}
+		<button id="report" class="ready">Report</button>
+	{% endif %}
+
 	{{ super() }}
-	
+
 {% endblock body %}

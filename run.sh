@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # start the game 
-poetry run python3 src/endpoints.py -vv -p
+poetry run python3 src/endpoints.py -vv

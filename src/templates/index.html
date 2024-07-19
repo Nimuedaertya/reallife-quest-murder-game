@@ -2,6 +2,11 @@
 
 {% block title %} AmongUs-IRL {% endblock title %}
 
+{% block js_files %}
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script async defer src="{{ url_for('static', filename='src/scripts/qr_scanner.js')}}" type="module"></script>
+{% endblock js_files %}
+
 {% block header %}
 		<h2>Willkommen beim Reallife-Quest-Murder-Game, </h2>
 		<form action="" method = "POST">
@@ -13,7 +18,14 @@
 {% endblock header %}
 
 {% block body %}
-	<body>
+	{% if meta_data.https %}
+		<div class="qr-code-scanner-container">
+			<button id="qr_code_button" class="ready">QR Code scannen</button>
+			<video id="qr-scanner-feed" class="qr-scanner hide-qr-scanner" autoplay></video>
+			<button id="flash-toggle" class="ready hidden">Blitz einschalten</button>
+		</div>
+	{% endif %}
+
         <h3>Regeln:</h3>
 			<p>
 				<ul>
@@ -40,5 +52,43 @@
 					<li>Ruft 'Meeting' wenn ihr jemand toten entdeckt</li>
 					<li>Auch wenn ihr Tot seid, solltet ihr noch Aufgaben machen!</li>
 			  </ul> 
-			</p>			
+			</p>
+
+
+		<script type="module">
+			import QrScanner from '{{ url_for('static', filename='src/scripts/libraries/qr-scanner.min.js')}}';
+
+			$(document).ready(function() {
+				const video_elem = $('#qr-scanner-feed')
+
+				$('#qr_code_button').on('click', async function () {
+
+					const qrScanner = new QrScanner(
+							video_elem[0],
+							result => {
+								console.log(result.data)
+								window.location = encodeURI(result.data)
+								qrScanner.stop()
+							},
+							{ /* optional attributes */ },
+					);
+
+					qrScanner.start();
+					$(this).addClass('hidden')
+					$(video_elem).removeClass('hide-qr-scanner')
+
+					qrScanner.hasFlash().then(hasFlash => {
+						if(hasFlash) {
+							$('#flash-toggle').removeClass('hidden');
+						}
+					});
+
+					await new Promise(resolve => setTimeout(resolve, 15000));
+
+					qrScanner.stop()
+					$(video_elem).addClass('hide-qr-scanner')
+					$(this).removeClass('hidden')
+				})
+			});
+		</script>
 {% endblock body %}
