@@ -46,8 +46,6 @@
 			  {% endif %}
 			{% endfor %}
 		</ul>
-	
-	{{ super() }}
 
 	{% if data.role.can_kill == true %}
 		<button id="kill" class="ready">💀 Kill</button>
@@ -58,6 +56,6 @@
 
 	<button id="report" class="ready">Report</button>
 	
-	<button onclick="document.location='../../tasks'">Zum Aufgabenstatus</button> 
-	<button onclick="document.location='../../players'">Zur Spielerübersicht</button>
+	{{ super() }}
+	
 {% endblock body %}
