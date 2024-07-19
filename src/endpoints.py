@@ -65,11 +65,14 @@ class Round(FlaskView):
     players, visible_to_data = distribute_roles(players, roles)
     players = distribute_tasks(players, tasks)
     data = players
+    meta_data = {}
 
     @route('/', methods=['GET', 'POST'])
     def index(self):
+        self.meta_data['https'] = https_enabled
         if request.method == 'GET':
-            return render_template(const.PATH_TEMPLATE_INDEX)
+            return render_template(const.PATH_TEMPLATE_INDEX,
+                                   meta_data=self.meta_data)
 
         if request.method == 'POST':
             user = request.form['User']
@@ -77,7 +80,9 @@ class Round(FlaskView):
 
     @route(ENDPOINT_ADMIN, methods=['GET'])
     def admin(self):
-        return render_template(const.PATH_TEMPLATE_ADMIN, data=self.data)
+        return render_template(const.PATH_TEMPLATE_ADMIN,
+                               data=self.data,
+                               meta_data=self.meta_data)
 
     @route(ENDPOINT_ADMIN_JSON, methods=['GET'])
     def adminjson(self):
@@ -94,7 +99,8 @@ class Round(FlaskView):
 
         return render_template(const.PATH_TEMPLATE_PLAYERS,
                                number_all=all_players,
-                               number_alive=alive)
+                               number_alive=alive,
+                               meta_data=self.meta_data)
 
     @route(ENDPOINT_USERS + '/<username>', methods=['GET', 'POST'])
     def user(self, username):
@@ -107,7 +113,8 @@ class Round(FlaskView):
 
             return render_template(const.PATH_TEMPLATE_PLAYER_INFO,
                                    username=username,
-                                   data=user_data)
+                                   data=user_data,
+                                   meta_data=self.meta_data)
 
         if request.method == 'POST':
             dead_bool = request.form['dead_button']
@@ -117,7 +124,9 @@ class Round(FlaskView):
     @route('/tasks/<task>', methods=['POST', 'GET'])
     def data_tasks(self, task):
         if request.method == 'GET':
-            return render_template(self.tasks[task]['path_to_template'], task=self.tasks[task])
+            return render_template(self.tasks[task]['path_to_template'],
+                                   task=self.tasks[task],
+                                   meta_data=self.meta_data)
 
         if request.method == 'POST':
 
@@ -128,10 +137,13 @@ class Round(FlaskView):
                     if i['id'] == task:
                         i['task_done'] = True
                         break
-                return render_template(const.PATH_TEMPLATE_SUCCESSFUL_TASK, name=name)
+                return render_template(const.PATH_TEMPLATE_SUCCESSFUL_TASK,
+                                       name=name,
+                                       meta_data=self.meta_data)
 
             # Default return
-            return render_template(const.PATH_TEMPLATE_FAILED_TASK)
+            return render_template(const.PATH_TEMPLATE_FAILED_TASK,
+                                   meta_data=self.meta_data)
 
     @route('/tasks', methods=['GET'])
     def task_overview(self,):
@@ -148,7 +160,8 @@ class Round(FlaskView):
 
         return render_template('tasks_overview.html',
                                amount_tasks=overall,
-                               completed_tasks=completed)
+                               completed_tasks=completed,
+                               meta_data=self.meta_data)
 
     @route('/getTimer/', methods=['POST'])
     def getTimer(self):
@@ -220,6 +233,8 @@ if __name__ == '__main__':
 
     # need --public flag to be available in network
     if args.secure:
+        https_enabled = True
+
         if args.public:
             log.info("Public https server will be started")
             socketio.run(app, host="0.0.0.0", port=port, ssl_context=(const.PATH_SSL_CERT, const.PATH_SSL_KEY))
@@ -234,6 +249,7 @@ if __name__ == '__main__':
                          )
 
     else:
+        https_enabled = False
         if args.public:
             log.info("Public http server will be started")
             app.run(host="0.0.0.0", port=port)

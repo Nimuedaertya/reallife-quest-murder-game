@@ -21,7 +21,7 @@
 	{% endif %}
 
 	<p> {{ data.role.description }} </p>
-	
+
 	{% if data.other_role_info is defined %}
 	<h3> Weitere Informationen: </h3>
 	    {% for role in data.other_role_info %}
@@ -54,8 +54,10 @@
 
 	<button id="dead_button" class="ready" value='dead'>Dead</button>
 
-	<button id="report" class="ready">Report</button>
-	
+	{% if meta_data.https %}
+		<button id="report" class="ready">Report</button>
+	{% endif %}
+
 	{{ super() }}
-	
+
 {% endblock body %}
