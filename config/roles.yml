@@ -1,38 +1,38 @@
 Crewmate:
   name: Crewmate
-  description: "Complete all tasks or vote all Imposters out!"
+  description: "Mache alle Aufgaben oder schmeißt alle bösen Rollen raus."
   visible_to: []
   has_tasks: true
-  amount: 3
+  amount: 10
   chance: 100
 Sheriff:
   name: Sheriff
-  description: "Complete all tasks or vote all Imposters out. You can kill someone the same way the Imposters can."
+  description: "Mache alle Aufgaben oder schmeiße alle bösen Rollen raus. Du kannst einmalig jemanden umbringen."
   visible_to: []
   has_tasks: true
   can_kill: true
   parent_role: Crewmate
-  amount: 2
+  amount: 1
   chance: 100
 Doctor:
   name: Doctor
-  description: "Complete all tasks or vote all Imposters out. If you see a dead person sitting on the ground, you can ask how many seconds ago the kill happened."
+  description: "Mache alle Aufgaben oder schmeiße alle bösen Rollen raus. Wenn du eine Leiche findest kannst du der Person wieder hoch helfen und sie darf weiterspielen."
   visible_to: []
   has_tasks: true
   parent_role: Crewmate
-  amount: 2
+  amount: 1
   chance: 100
 Lawyer:
   name: Lawyer
-  description: "You win with the Imposters if alive or if all tasks have been done. The Imposters dont know you!"
+  description: "Du gewinnst mit den Impostern wenn du noch lebst, oder wenn die Crewmates durch Aufgaben gewinnen. Die Imposter kennen dich nicht!"
   visible_to: []
   has_tasks: true
   parent_role: Crewmate
-  amount: 0
+  amount: 1
   chance: 100
 Imposter:
   name: Imposter
-  description: "Kill all Crewmates"
+  description: "Töte alle Crewmates"
   visible_to:
     - Imposter
     - Lawyer
@@ -43,7 +43,7 @@ Imposter:
   chance: 100
 Vampire:
   name: Vampire
-  description: "Kill all Crewmates. Your special ability allows you to show a player a peace sign, which means that he dies in 20 seconds. Those seconds have to be counted by the dying player. A Meeting kills him at call out."
+  description: "Töte alle Crewmates. Deine Spezialfähigkeit erlaubt es dir einem Spieler ein Peace-Zeichen zu zeigen. Er muss sich so verhalten wir normal und stirbt 20 Sekunden später. Sollte vorher ein Meeting einberufen werden, stirbt die Person früher."
   visible_to:
     - Imposter
     - Lawyer
@@ -53,11 +53,21 @@ Vampire:
   parent_role: Imposter
   amount: 1
   chance: 100
-Jackal:
-  name: Jackal
-  description: "You are a third Party in the Game! Kill everybody to win."
+Schakal:
+  name: Schakal
+  description: "Du bist eine dritte Partei im Spiel. Töte alle im zu gewinnen!"
   visible_to: []
   has_tasks: false
   can_kill: true
   amount: 1
   chance: 100
+Turbo Cute:
+  name: Turbo Cute
+  description: "Du bist herzzerreißend süß. Gib einem Spieler mit einem Luftkuss zu verstehen, dass du das ein und alles dieser Person bist. Solltest du sterben, stirbt die andere Person auch, sobald sie es mitbekommt. Du bist den Impostern bekannt"
+  visible_to:
+    - Imposter
+  has_tasks: true
+  can_kill: false
+  amount: 1
+  chance: 100
+  parent_role: Crewmate
