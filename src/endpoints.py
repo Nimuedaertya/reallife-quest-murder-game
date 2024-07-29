@@ -2,6 +2,7 @@
 import argparse
 import logging as log
 import static_variables as const
+import copy
 
 # specific impors
 from flask import Flask, render_template, request, redirect, jsonify
@@ -63,7 +64,7 @@ class Round(FlaskView):
     tasks = load_tasks()
     players = load_players()
     players, visible_to_data = distribute_roles(players, roles)
-    players = distribute_tasks(players, tasks)
+    players = distribute_tasks(players, copy.deepcopy(tasks))
     data = players
     meta_data = {}
 
