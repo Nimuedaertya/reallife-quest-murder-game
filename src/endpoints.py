@@ -2,10 +2,12 @@
 import argparse
 import logging as log
 import static_variables as const
+import copy
 
 # specific impors
 from flask import Flask, render_template, request, redirect, jsonify
 from flask_classful import FlaskView, route
+from flask_socketio import SocketIO, emit
 from flask_assets import Bundle, Environment
 from loading import load_roles, load_tasks, load_players
 from init_round import distribute_roles, distribute_tasks
@@ -25,6 +27,31 @@ ENDPOINT_ADMIN_JSON = '/adminjson'
 app = Flask(__name__)
 assets = Environment(app)
 css = Bundle(const.PATH_CSS_INPUT, output=const.PATH_CSS_OUTPUT)
+socketio = SocketIO(app)
+app.config['SECRET_KEY'] = const.FLASK_SECRET_KEY
+https_enabled = False
+
+###
+# Websocket
+# documentation: https://flask-socketio.readthedocs.io/en/latest/getting_started.html#initialization
+###
+
+
+# The report Message which is send to all users on the Website on this time
+@socketio.on('report')
+def reporting(message):
+    emit('report', message['data'], broadcast=True)
+    print('received message: ' + str(message))
+
+
+@socketio.on('connect')
+def test_connect():
+    emit('my response', {'data': 'Connected'})
+
+
+@socketio.on('disconnect')
+def test_disconnect():
+    print('Client disconnected')
 
 ###
 # classes
@@ -37,13 +64,16 @@ class Round(FlaskView):
     tasks = load_tasks()
     players = load_players()
     players, visible_to_data = distribute_roles(players, roles)
-    players = distribute_tasks(players, tasks)
+    players = distribute_tasks(players, copy.deepcopy(tasks))
     data = players
+    meta_data = {}
 
     @route('/', methods=['GET', 'POST'])
     def index(self):
+        self.meta_data['https'] = https_enabled
         if request.method == 'GET':
-            return render_template(const.PATH_TEMPLATE_INDEX)
+            return render_template(const.PATH_TEMPLATE_INDEX,
+                                   meta_data=self.meta_data)
 
         if request.method == 'POST':
             user = request.form['User']
@@ -51,7 +81,9 @@ class Round(FlaskView):
 
     @route(ENDPOINT_ADMIN, methods=['GET'])
     def admin(self):
-        return render_template(const.PATH_TEMPLATE_ADMIN, data=self.data)
+        return render_template(const.PATH_TEMPLATE_ADMIN,
+                               data=self.data,
+                               meta_data=self.meta_data)
 
     @route(ENDPOINT_ADMIN_JSON, methods=['GET'])
     def adminjson(self):
@@ -66,7 +98,10 @@ class Round(FlaskView):
             if self.data[player]['dead'] is False:
                 alive += 1
 
-        return render_template(const.PATH_TEMPLATE_PLAYERS, number_all=all_players, number_alive=alive)
+        return render_template(const.PATH_TEMPLATE_PLAYERS,
+                               number_all=all_players,
+                               number_alive=alive,
+                               meta_data=self.meta_data)
 
     @route(ENDPOINT_USERS + '/<username>', methods=['GET', 'POST'])
     def user(self, username):
@@ -77,7 +112,10 @@ class Round(FlaskView):
 
             user_data = self.data[username]
 
-            return render_template(const.PATH_TEMPLATE_PLAYER_INFO, username=username, data=user_data)
+            return render_template(const.PATH_TEMPLATE_PLAYER_INFO,
+                                   username=username,
+                                   data=user_data,
+                                   meta_data=self.meta_data)
 
         if request.method == 'POST':
             dead_bool = request.form['dead_button']
@@ -87,7 +125,9 @@ class Round(FlaskView):
     @route('/tasks/<task>', methods=['POST', 'GET'])
     def data_tasks(self, task):
         if request.method == 'GET':
-            return render_template(self.tasks[task]['path_to_template'], task=self.tasks[task])
+            return render_template(self.tasks[task]['path_to_template'],
+                                   task=self.tasks[task],
+                                   meta_data=self.meta_data)
 
         if request.method == 'POST':
 
@@ -98,10 +138,13 @@ class Round(FlaskView):
                     if i['id'] == task:
                         i['task_done'] = True
                         break
-                return render_template(const.PATH_TEMPLATE_SUCCESSFUL_TASK, name=name)
+                return render_template(const.PATH_TEMPLATE_SUCCESSFUL_TASK,
+                                       name=name,
+                                       meta_data=self.meta_data)
 
             # Default return
-            return render_template(const.PATH_TEMPLATE_FAILED_TASK)
+            return render_template(const.PATH_TEMPLATE_FAILED_TASK,
+                                   meta_data=self.meta_data)
 
     @route('/tasks', methods=['GET'])
     def task_overview(self,):
@@ -116,7 +159,10 @@ class Round(FlaskView):
                     if task['task_done']:
                         completed += 1
 
-        return render_template('tasks_overview.html', amount_tasks=overall, completed_tasks=completed)
+        return render_template('tasks_overview.html',
+                               amount_tasks=overall,
+                               completed_tasks=completed,
+                               meta_data=self.meta_data)
 
     @route('/getTimer/', methods=['POST'])
     def getTimer(self):
@@ -154,8 +200,12 @@ if __name__ == '__main__':
                         action='store_true')
     parser.add_argument('-vv', '--extended_verbose',
                         action='store_true')
+    # needed for notifications and qr_scanner
+    parser.add_argument('-s', '--secure',
+                        action='store_true')
     parser.add_argument('-p', '--public',
                         action='store_true')
+    parser.add_argument('--port')
 
     args = parser.parse_args()
 
@@ -177,11 +227,34 @@ if __name__ == '__main__':
     Round.register(app, route_base='/')
     game = Round()
 
+    # set pport
+    port = const.DEFAULT_PORT
+    if args.port:
+        port = args.port
+
     # need --public flag to be available in network
-    if args.public:
-        log.info("Public server will be started")
-        app.run(debug=True, host="0.0.0.0")
-    # start server normally on localhost
+    if args.secure:
+        https_enabled = True
+
+        if args.public:
+            log.info("Public https server will be started")
+            socketio.run(app, host="0.0.0.0", port=port, ssl_context=(const.PATH_SSL_CERT, const.PATH_SSL_KEY))
+
+        else:
+            log.info("Local https server will be started")
+            socketio.run(app,
+                         port=port,
+                         allow_unsafe_werkzeug=True,
+                         debug=True,
+                         ssl_context=(const.PATH_SSL_CERT, const.PATH_SSL_KEY)
+                         )
+
     else:
-        log.info("Local server will be started")
-        app.run(debug=True)
+        https_enabled = False
+        if args.public:
+            log.info("Public http server will be started")
+            app.run(host="0.0.0.0", port=port)
+
+        else:
+            log.info("Local http server will be started")
+            app.run(port=port, debug=True)

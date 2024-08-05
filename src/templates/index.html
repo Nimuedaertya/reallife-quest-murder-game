@@ -1,33 +1,40 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>AmongUs-IRL</title>
-        <meta name="description" content="Wir wollen AmongUs richtig spielen!" />
-        <meta name="authors" content="Nimuedaertya, Limira">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/styles/output.css') }}">
-		<link rel="shortcut icon" href="{{ url_for('static', filename='src/images/AmongUsFavIcon.ico') }}">
-    </head>   
-	<header>
-		<h2>Willkommen bei Among US in Realife, </h2>
+{% extends "base_template.html" %}
+
+{% block title %} Startseite {% endblock title %}
+
+{% block js_files %}
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script async defer src="{{ url_for('static', filename='src/scripts/qr_scanner.js')}}" type="module"></script>
+{% endblock js_files %}
+
+{% block header %}
+		<h2>Willkommen beim Reallife-Quest-Murder-Game, </h2>
 		<form action="" method = "POST">
 			<label for="User">Name: </label>
 			<input id="name" type = "text" name = "User" />
 			<input type = "submit" value = "Submit" />
 		</form>
-		<p class="botlabel">Um Mitzumachen gebe hier deinen Namen ein!</p>
-	</header>
-    <body>
+		<p class="botlabel">Um mitzumachen gebe hier deinen Namen ein!</p>
+{% endblock header %}
+
+{% block body %}
+	{% if meta_data.https %}
+		<div class="qr-code-scanner-container">
+			<button id="qr_code_button" class="ready">QR Code scannen</button>
+			<video id="qr-scanner-feed" class="qr-scanner hide-qr-scanner" autoplay></video>
+			<button id="flash-toggle" class="ready hidden">Blitz einschalten</button>
+		</div>
+	{% endif %}
+
         <h3>Regeln:</h3>
 			<p>
 				<ul>
 					<li>Kein Reden außerhalb der Meetings.</li>
 					<li>Zeigt niemanden die Oberfläche eures Handys bzw. schaut bei anderen nicht rauf.</li>
 					<li>Imposter töten indem sie jemanden mit einer Hand auf die Schulter fassen.</li>
-					<li>Imposter dürfen nur alle 30 Sekunden töten und müssen um den Timer zu resetten auf ihrer Seite bleiben.</li>
 					<li>Wenn jemand in einer laufenden Runde getötet wird, muss er sich auf den Boden legen oder setzen und darf keine Aufgaben für die Runde mehr machen. Außerdem setzt diese Person sich eine Kopfbedeckung auf.</li>
 					<li>Ruft jemand das Wort 'Meeting' so muss jeder seine Aufgabe abbrechen und sich zum Meetingort begeben. Es dürfen auch keine Leute auf dem Weg dorthin umgebracht werden.</li>
+					<li>Erhaltet ihr die Notification, dass jemand umgebracht wurde gilt das selbe wie im Punkt zuvor erläutert. </li>
 					<li>Wird der letzte Imposter bei einem Meeting rausgevotet, so muss er dies sagen, da durch endet das Spiel.</li>
 					<li>Leben zu einem Zeitpunkt genau so viele Crewmates wie Imposter gewinnen die Imposter.</li>
 					<li>Ein eingerufenes Meeting geht 180 Sekunden sobald alle angekommen sind. Nach Ablauf dieser Zeit zeigt jeder auf eine Person, die rausgevotet werden soll. Enthaltungen sind möglich.</li>
@@ -35,7 +42,6 @@
 					<li>Tote Personen dürfen weiterhin ihre Aufgaben erledigen, müssen aber ihre Kopfbedeckung auf haben.</li>
 					<li>Sobald alle Aufgaben, die die Crewmates haben erledigt sind, gewinnen die Crewmates.</li>
 					<li>Tote müssen zu Beginn eines Meetings auch zum Meeting gehen.</li>
-					<li>Das Verstecken hinter Türen, oder hinter Gegenständen dürfen nur Imposter. Crewmates dürfen sich nur an offensichtliches Stellen hinsetzen oder stehen.</li>
 				</ul> 
 			</p>
 
@@ -46,10 +52,43 @@
 					<li>Ruft 'Meeting' wenn ihr jemand toten entdeckt</li>
 					<li>Auch wenn ihr Tot seid, solltet ihr noch Aufgaben machen!</li>
 			  </ul> 
-			</p>			
-
-    </body>
-    
-</html>
+			</p>
 
 
+		<script type="module">
+			import QrScanner from '{{ url_for('static', filename='src/scripts/libraries/qr-scanner.min.js')}}';
+
+			$(document).ready(function() {
+				const video_elem = $('#qr-scanner-feed')
+
+				$('#qr_code_button').on('click', async function () {
+
+					const qrScanner = new QrScanner(
+							video_elem[0],
+							result => {
+								console.log(result.data)
+								window.location = encodeURI(result.data)
+								qrScanner.stop()
+							},
+							{ /* optional attributes */ },
+					);
+
+					qrScanner.start();
+					$(this).addClass('hidden')
+					$(video_elem).removeClass('hide-qr-scanner')
+
+					qrScanner.hasFlash().then(hasFlash => {
+						if(hasFlash) {
+							$('#flash-toggle').removeClass('hidden');
+						}
+					});
+
+					await new Promise(resolve => setTimeout(resolve, 15000));
+
+					qrScanner.stop()
+					$(video_elem).addClass('hide-qr-scanner')
+					$(this).removeClass('hidden')
+				})
+			});
+		</script>
+{% endblock body %}

@@ -1,9 +1,15 @@
 #!/bin/bash
 
+# create certs
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 2 -nodes -subj "/C=XX/ST=StateName/L=CityName/O=CompanyName/OU=CompanySectionName/CN=CommonNameOrHostname"
+mkdir config/certs
+mv key.pem config/certs/
+mv cert.pem config/certs/
+
 # https://stackoverflow.com/questions/29436275/how-to-prompt-for-yes-or-no-in-bash#29436423
 function yes_or_no {
     while true; do
-        read -p "$* [y/n]: " yn
+        read -r -p "$* [y/n]: " yn
         case $yn in
             [Yy]*) return 0  ;;
             [Nn]*) echo "Aborted" ; return  1 ;;

@@ -123,12 +123,14 @@ label {
 .ready {
   background-color: greenyellow;
   border-color: green;
+  margin-top: 0.8em;
 }
 
 .ready:hover {
   color: greenyellow;
   background-color: black;
   border: 2px solid greenyellow;
+  margin-top: 0.8em;
 }
 
 .process {
@@ -145,7 +147,7 @@ label {
 }
 
 .pause {
-  background-color: gray;
+  background-color: grey;
   border-color: darkgray;
   color: rgb(50, 50, 50);
   margin-top: 0.8em;
@@ -153,7 +155,7 @@ label {
 }
 
 .pause:hover {
-  background-color: gray;
+  background-color: grey;
   border-color: darkgray;
   color: rgb(50, 50, 50);
   margin-top: 0.8em;
@@ -204,6 +206,18 @@ label {
 
 .table_admin {
   border: 2px solid;
+}
+
+.qr-scanner {
+  width: 80%;
+  max-width: 400px;
+  margin-top: 1.5em;
+  border: 2px solid yellowgreen;
+  border-radius: 8px;
+}
+
+.hide-qr-scanner {
+  display: none;
 }
 
 th, td {

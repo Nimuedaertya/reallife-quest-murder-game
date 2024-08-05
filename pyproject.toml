@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "reallife-quest-murder-game"
-version = "0.1.0"
+version = "1.0.0"
 description = ""
 authors = ["Nimuedaertya <saluneriya@googlemail.com>"]
 readme = "README.md"
@@ -16,6 +16,7 @@ flask-assets = "^2.1.0"
 argparse = "^1.4.0"
 segno = "^1.6.1"
 reportlab = "^4.2.0"
+flask-socketio = "^5.3.6"
 
 
 [tool.poetry.group.dev.dependencies]

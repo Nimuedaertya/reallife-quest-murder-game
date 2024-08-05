@@ -102,6 +102,8 @@ def distribute_roles(players, roles):
                 for tmp in players[player]['other_role_info'][role]['entities']:
                     if tmp == players[player]['name']:
                         players[player]['other_role_info'][role]['entities'].remove(players[player]['name'])
+                        if len(players[player]['other_role_info'][role]['entities']) == 0:
+                            players[player]['other_role_info'].pop(role)
                         break
                 else:
                     continue

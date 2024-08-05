@@ -140,10 +140,6 @@ class RoleModel(Model):
             data.pop('parent_role')
 
 
-    def validate_parent_role(self, data, value):
-        if data['parent_role'] is None:
-            data.pop('parent_role')
-
 class TaskModel(Model):
     id = StringType(required=True)
     name = StringType(required=True)
