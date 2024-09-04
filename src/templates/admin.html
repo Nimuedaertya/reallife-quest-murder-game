@@ -6,24 +6,24 @@
 	<h2> Admin page </h2>
 		<br> <br>
 		<table class="table_admin">
-		<TR>
-		   <TD class="admin_tab_head">Player Name</TD>
-		   <TD class="admin_tab_head">Role</TD>
-		   <TD class="admin_tab_head"><SPAN>Alive</SPAN></TD>
-		   <TD class="admin_tab_head"><SPAN>Link</SPAN></TD>
-		</TR>
+		<tr>
+		   <td class="admin_tab_head">Player Name</td>
+		   <td class="admin_tab_head">Role</td>
+		   <td class="admin_tab_head"><span>Alive</span></td>
+		   <td class="admin_tab_head"><span>Link</span></td>
+		</tr>
 		{% for player_id in data %}
 		{% set player = data[player_id]%}
-		<TR>
-		   <TD class="admin_tab">{{player.name}}</TD>
-		   <TD class="admin_tab">{{player.role.name}}</TD>
+		<tr>
+		   <td class="admin_tab">{{player.name}}</td>
+		   <td class="admin_tab">{{player.role.name}}</td>
 		   {% if player.dead %}
-		   <TD class="admin_tab_bool_false">&times;</TD>
+		   <td class="admin_tab_bool_false">&times;</td>
 		   {% else %}
-		   <TD class="admin_tab_bool_true">&#10004;</TD>
+		   <td class="admin_tab_bool_true">&#10004;</td>
 		   {% endif %}
-		   <TD><a href="../user/{{player_id}}" class="button">Spielerprofil</a> </TD>
-		</TR>
+		   <td><a href="../user/{{player_id}}" class="button">Spielerprofil</a></td>
+		</tr>
 		{% endfor %}
 		</table>
 {% endblock body %}
