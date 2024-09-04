@@ -1,16 +1,15 @@
 {% extends "base_template.html" %}
-
-{% block title %} {{ task.name }} {% endblock title %}
-
+{% block title %}
+    {{ task.name }}
+{% endblock title %}
 {% block body %}
-    <h2> Aufgabe {{ task.name }} ^-^ </h2>
-	<p>  </p>
-	<h3> Weitere Informationen: </h3>
-	<p> {{ task.description }} </p>
-
-  <form action="" method = "POST">
-    <label for="Name">Name</label>
-    <input type = "text" name = "Name" />
-    <input type = "submit" value = "Submit" />
-  </form>
+    <h2>Aufgabe {{ task.name }} ^-^</h2>
+    <p></p>
+    <h3>Weitere Informationen:</h3>
+    <p>{{ task.description }}</p>
+    <form action="" method = "POST">
+        <label for="Name">Name</label>
+        <input type = "text" name = "Name" />
+        <input type = "submit" value = "Submit" />
+    </form>
 {% endblock body %}

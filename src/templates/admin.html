@@ -1,29 +1,36 @@
 {% extends "base_template.html" %}
-
-{% block title %} Admin {% endblock title %}
-
+{% block title %}
+    Admin
+{% endblock title %}
 {% block body %}
-	<h2> Admin page </h2>
-		<br> <br>
-		<table class="table_admin">
-		<tr>
-		   <td class="admin_tab_head">Player Name</td>
-		   <td class="admin_tab_head">Role</td>
-		   <td class="admin_tab_head"><span>Alive</span></td>
-		   <td class="admin_tab_head"><span>Link</span></td>
-		</tr>
-		{% for player_id in data %}
-		{% set player = data[player_id]%}
-		<tr>
-		   <td class="admin_tab">{{player.name}}</td>
-		   <td class="admin_tab">{{player.role.name}}</td>
-		   {% if player.dead %}
-		   <td class="admin_tab_bool_false">&times;</td>
-		   {% else %}
-		   <td class="admin_tab_bool_true">&#10004;</td>
-		   {% endif %}
-		   <td><a href="../user/{{player_id}}" class="button">Spielerprofil</a></td>
-		</tr>
-		{% endfor %}
-		</table>
+    <h2>Admin page</h2>
+    <br>
+    <br>
+    <table class="table_admin">
+        <tr>
+            <td class="admin_tab_head">Player Name</td>
+            <td class="admin_tab_head">Role</td>
+            <td class="admin_tab_head">
+                <span>Alive</span>
+            </td>
+            <td class="admin_tab_head">
+                <span>Link</span>
+            </td>
+        </tr>
+        {% for player_id in data %}
+            {% set player = data[player_id] %}
+            <tr>
+                <td class="admin_tab">{{ player.name }}</td>
+                <td class="admin_tab">{{ player.role.name }}</td>
+                {% if player.dead %}
+                    <td class="admin_tab_bool_false">&times;</td>
+                {% else %}
+                    <td class="admin_tab_bool_true">&#10004;</td>
+                {% endif %}
+                <td>
+                    <a href="../user/{{ player_id }}" class="button">Spielerprofil</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock body %}
