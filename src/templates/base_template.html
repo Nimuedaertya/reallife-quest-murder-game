@@ -20,9 +20,9 @@
 	</header>
   <body>
 	{% block body scoped %}
-	<button onclick="document.location='../../tasks'">Zum Aufgabenstatus</button> 
-	<button onclick="document.location='../../players'">Zur Spielerübersicht</button> 
-    <button onclick="document.location='../'">Zur Startseite</button> 
+	<a href="../../tasks" class="button">Zum Aufgabenstatus</a>
+	<a href="../../players" class="button">Zur Spielerübersicht</a>
+	<a href="../" class="button">Zur Startseite</a>
 	{% endblock body %}
   </body>
 </html>
