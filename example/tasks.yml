@@ -1,0 +1,96 @@
+dertypderdastabletthaltenmuss:
+  name: Butler
+  description: "Trage eine der Schüssel mit Gemüse in einer deiner beiden Hände. Sobald du die Schüssel nicht mehr in der Hand hast, bist du tot. Solltest du es schaffe, während der Runde dafür zu sorgen, dass die Schüssel leer wird. Bringe sie hierher zurück und du hast die Aufgabe geschafft. Du darfst nicht selber von der Schüssel essen. Sobald du das geschafft hast, trage deinem Namen hier ein."
+  max_existence: 5
+taskgurken:
+  name: Kochdienst
+  description: "In dem Glasbehälter stehen Gurken. Nimm dir eine davon und schneide diese Snackstücke, entweder Scheiben oder Sticks. Sobald du das getan hast, trage deinen Namen hier ein."
+  max_existence: 3
+taskfib:
+  name: Kurs berechnen
+  description: "Auf dem Papier sind Zahlen der Fibonacci-Folge geschrieben. Eine Zahl an Position X setzt sich zusammen aus der Addition der beiden Zahlen davor. Berechne die nächste Zahl und schreibe darüber deinen Namen. Sobald du das geschafft hast, trage deinen Namen hier ein."
+  max_existence: 5
+taskgluckgluck:
+  name: Verschnaufspause
+  description: "Fülle deinen Wasservorrat auf indem du dir einen Schluck genehmigst. Sobald du das geschafft hast, trage deinen Namen hier ein."
+  max_existence: 2 
+taskwenndiekackeamdampfenist:
+  name: Putzdienst
+  description: "Du bist dran mit Putzdienst. Macht niemand gerne, aber eine wichtige Aufgabe auf dem Raumschiff. Nimm dir die Klobürste und putze für einige Sekunden die Toilette damit. Sobald du das geschafft hast, trage deinen Namen hier ein."
+  max_existence: 2
+task09kztr:
+  name: Kampfsimulation
+  description: "Du bist dran! Mache für die Farbe die am Zug ist einen validen Schachzug. Wenn du die Regeln nicht kennst, darfst du an der Aufgabe warten und jemanden auf Hilfe ansprechen. Sobald du das geschafft hast drehe das Schild mit der Farbe, welche am Zug ist um und trage danach deinen Namen hier ein."
+  max_existence: 10 
+ask06oha:
+  name: Biokultur pflegen
+  description: "Die Pflanzen im Gewächshauses des Schiffes müssen gegossen werden. Nimm dir die Gießkanne, fülle sie mit Wasser und gieße zwei Pflanzen EIN WENIG (bitte checken, wie nass die Pflanzen sind). Sobald du das getan hast, trage deinen Namne hier ein."
+  max_existence: 2
+task15archivierung:
+  name: Archivierung
+  description: "Nimm dir zwei der Bücher vom Stapel. Fehlen hier welche, musst du zuerst neue besorgen von der Stelle wo du diese hinbringen sollst. Folge den Markierungen auf dem Boden und stelle sie in das Bücherregel. Sortiere die Bücher nach besten Gewissen! Sobald du sie dort eingeräumt hast, trage deinen Namen hier ein."
+  max_existence: 1
+tasksprimz:
+  name: Kurskorrektur
+  description: "Auf den Blatt vor die stehen Primzahlen. Schaue dir die letzte an, validiere ob diese korrekt ist. Wenn diese Falsch ist, streiche sie durch. Schreibe die nächste korrekte Primzahl hin und darüber deinen Namen. Sobald du das getan hast, trage deinen Namen hier ein."
+  max_existence: 4
+tasknettseinschadetnicht:
+  name: Liebesbrief
+  description: "Schreibe einer Person deiner Wahl, die auch Teil dieses Events ist eine Nachricht in der Gruppe. In der Nachricht muss was nettes stehen, was du positiv zu dieser Person vor allen vermerken möchtest. Nimm jedes Mal wenn du diese Aufgabe machst jemand anderen."
+  max_existence: 10
+taskmobbing:
+  name: Mobbing
+  description: "Es gibt zwei Personen, die zum Zeitpunkt des Verfassens der Aufgaben sich nicht in der Gruppe vorgestellt haben! Max und Steven. Lass deinen Frust darüber etwas in der Gruppe aus, aber auf eine humorvolle Art und Weise."
+  max_existence: 0
+taskschnickschnackschnuck:
+  name: Duellant
+  description: "Diese Aufgabe kannst du nicht alleine machen. Signalisiere jemand anderem, dass du ihn zu einem Du-du-duell herausfordern möchtest. Ihr spielt Schere-Stein-Papier bis jemand 3 mal gewonnen hat."
+  max_existence: 5
+taskverstecken:
+  name: Maskottchen
+  description: "Suche das Kuscheltier hier im Raum. Sobald du es gefunden hast, verstecke es wieder. Wenn du das getan hast, trage deinen Namen hier ein."
+  max_existence: 5
+taskweristderschoensteimganzenland:
+  name: Selfie Time
+  description: "Deine Familie auf der Erde möchte ein Status Update von dir. Mache drei Selfies von dir, jeweils in einer anderen Pose. Wähle den besten aus und schicke ihn in die Gruppe. Es gibt Bonuspunkte, wenn man die nicht alleine macht. Sobald du das geschafft hast, trage deinen Namen hier ein."
+  max_existence: 6
+taskfeedbackgeben:
+  name: Hatespeech
+  description: "So jetzt kannst du richtig die Sau rauslassen. Was lief heute denn so gar nicht gut? Ich brauche nur negatives Feedback :D Welche Aufgabe war doof? Was war nicht so rund und könnte besser klappen? Wer von den Gästen war dir unangenehm? Ja, egal was - schreib es mir gerne privat. Wenn dir nichts einfällt, musst du wohl doch was cutes schreiben."
+  max_existence: 5
+taskwurfball:
+  name: Waffentest
+  description: "Nimm den grünen Schaumstoffball. Setze dich in den blauen Stuhl und wirf in den Eimer in der Raumecke. Sobald du das geschafft hast, lege den Ball wieder neben den QR-Code und trage deinen Namen hier ein."
+  max_existence: 2
+taskschwingdiehufte:
+  name: Teamarbeit
+  description: "Für diese Aufgabe brauchst du eine 2. Person. Sprich dafür gerne andere Leute in der Umgebung an. WICHTIG: Die Aufforderung wird mit der linken Hand des Mannes gemacht!!!! Tanze mit egal wem etwas Walzer. Sollten dir die Schritte unbekannt sein, so musst du wohl kurz googeln. Es sollten schon so 20 - 30 Sekunden sein."
+  max_existence: 10
+taskrekursion:
+  name: Kreativwerkstatt
+  description: "Überlege dir selber eine Aufgabe, welche man bei einem solchen Event hier anbieten könnte. Schreibe sie entweder Maurice direkt oder packe sie in die Gruppe. Wenn du diese Aufgabe schonmal gemacht hast und wirklich keine Idee hast, darfst du sie überspringen."
+  max_existence: 2
+tasknichtzutiefruediger:
+  name: Lavaboden
+  description: "Für die restliche Zeit bis zum nächsten Meeting darfst du nicht mehr im Erdgeschoss rumlaufen. Bleibe also in der ersten Etage. Du darfst die Aufgabe schon als geschafft markieren. Solltest du dennoch runter gehen, stirbst du."
+  max_existence: 2
+taskbiologieistdochechtbezaubernd:
+  name: Fotokollage
+  description: "Vielleicht musst du deinen Raumanzug anziehen (Schuhe). Mache ein Bild von einem Tier im Garten. Die Größe ist egal, aber vielleicht findest du was besseres als Menschen."
+  max_existence: 4
+taskbaumliebe:
+  name: Wachstumshilfe
+  description: "Finde einen Baum im Garten und umarme ihn. Mit der gegebenen Liebe wächst er bestimmt noch etwas schneller"
+  max_existence: 5
+taskgutestimmungverbreiten:
+  name: Motivation
+  description: "Überlege dir einen Witz, welchen du beim nächsten Meeting erzählen musst."
+  max_existence: 5
+task05lka:
+  name: O2-level korrigieren
+  description: "Öffne das Fenster und schließe es nach ca. 30 Sekunden wenn der Sauerstoffgehalt des Raumschiffes wieder normalisiert ist. Dazwischen kannst du gerne auch andere Aufgaben erledigen. Sobald du das Fenster wieder geschlossen hast, trage deinen Namen hier ein."
+  max_existence: 2
+taskgeniesser:
+  name: Beobachtung
+  description: "Schnapp dir einen Stuhl im Garten, stelle ihn irgendwo hin und entspanne in ihm für 15 Sekunden."
+  max_existence: 5
