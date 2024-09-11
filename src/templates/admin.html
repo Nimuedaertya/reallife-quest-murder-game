@@ -23,12 +23,12 @@
                 <td class="admin_tab">{{ player.name }}</td>
                 <td class="admin_tab">{{ player.role.name }}</td>
                 {% if player.dead %}
-                    <td class="admin_tab_bool_false">&times;</td>
+                    <td class="admin_tab_bool_false">×</td>
                 {% else %}
-                    <td class="admin_tab_bool_true">&#10004;</td>
+                    <td class="admin_tab_bool_true">✔</td>
                 {% endif %}
                 <td>
-                    <a href="../user/{{ player_id }}" class="button">Spielerprofil</a>
+					<button onclick="document.location='../user/{{ player_id }}'">Spielerprofil</button>
                 </td>
             </tr>
         {% endfor %}

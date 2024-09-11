@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="keywords" content="foo,bar"/>
         <title>
             {% block title %}
             {% endblock title %}
@@ -26,9 +27,9 @@
     </header>
     <body>
         {% block body scoped %}
-            <a href="../../tasks" class="button">Zum Aufgabenstatus</a>
-            <a href="../../players" class="button">Zur Spielerübersicht</a>
-            <a href="../" class="button">Zur Startseite</a>
+			<button onclick="document.location='../../tasks'">Zum Aufgabenstatus</button>
+			<button onclick="document.location='../../players'">Zur Spielerübersicht</button>
+    		<button onclick="document.location='../'">Zur Startseite</button>
         {% endblock body %}
     </body>
 </html>

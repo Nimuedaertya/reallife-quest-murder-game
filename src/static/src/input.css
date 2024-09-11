@@ -89,7 +89,7 @@ li {
   margin-bottom: 0.5em;
 }
 
-#button {
+button {
   color: black;
   font-size: 1.5em;
   margin-top: 1.5em;
@@ -100,7 +100,7 @@ li {
   text-decoration: none;
 }
 
-#button:hover {
+button:hover {
   color: white;
   background-color: black;
   border: 2px solid white;

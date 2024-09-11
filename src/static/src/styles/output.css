@@ -89,7 +89,7 @@ li {
   margin-bottom: 0.5em;
 }
 
-#button {
+button {
   color: black;
   font-size: 1.5em;
   margin-top: 1.5em;
@@ -100,7 +100,7 @@ li {
   text-decoration: none;
 }
 
-#button:hover {
+button:hover {
   color: white;
   background-color: black;
   border: 2px solid white;
@@ -209,16 +209,9 @@ label {
   border: 2px solid;
 }
 
-.qr-code-scanner-container {
-  width: 100%;
-  max-width: 600px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
 .qr-scanner {
-  width: inherit;
+  width: 80%;
+  max-width: 400px;
   margin-top: 1.5em;
   border: 2px solid yellowgreen;
   border-radius: 8px;
