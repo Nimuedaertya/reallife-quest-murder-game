@@ -64,7 +64,7 @@
     <button id="kill" class="button ready">💀 Kill</button>
     <label class="hidden toplabel" id="killcount" for="kill"></label>
 {% endif %}
-<button id="dead_button" class="ready button" value='dead'>Dead</button>
-{% if meta_data.https %}<button id="report" class="ready">Leiche melden</button>{% endif %}
+<button id="dead_button" class="button ready" value='dead'>Dead</button>
+{% if meta_data.https %}<button id="report" class="button report ready">Leiche melden</button>{% endif %}
 {{ super() }}
 {% endblock body %}

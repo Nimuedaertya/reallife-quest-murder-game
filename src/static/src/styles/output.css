@@ -1,16 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Base styles */
 
 * {
   color: aliceblue;
   font-family: OctoberNight;
-  margin-bottom: 0em;
 }
+
 @font-face {
   font-family: AmongUs;
   src: url("../fonts/Amongus-3zjxX.ttf");
 }
+
 @font-face {
   font-family: OctoberNight;
   src: url("../fonts/October Night.otf");
@@ -36,8 +35,8 @@ h3 {
 ul {
   font-size: 1.5em;
 }
+
 p {
-  font-family: OctoberNight;
   font-size: 1.5em;
   background-color: rgba(0, 0, 0, 0.5);
   text-align: center;
@@ -89,63 +88,61 @@ li {
   margin-bottom: 0.5em;
 }
 
-#button {
-  color: black;
-  font-size: 1.5em;
-  margin-top: 1.5em;
-  border: 2px solid rgb(8, 125, 125);
-  padding: 0.5em;
-  border-radius: 8px;
-  transition-duration: 0.4s;
-  text-decoration: none;
-}
-
-#button:hover {
-  color: white;
-  background-color: black;
-  border: 2px solid white;
-}
-
 label {
   font-size: 1.5em;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.completed {
-  color: green;
-  text-decoration: line-through;
+/* Utility classes */
+
+.hidden {
+  display: none;
 }
 
-.botlabel,
-.toplabel {
-  font-size: 1.2em;
+/* Components: button */
+
+.button {
+  margin-top: 0.8em;
+
+  font-size: 1.5em;
+  border: 2px solid rgb(8, 125, 125);
+  padding: 0.5em;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+  
+  text-align: center;
+  text-decoration: none;
+
+  color: black;
+  background-color: aliceblue;
 }
 
-.ready {
+.button:hover {
+  color: white;
+  background-color: black;
+  border: 2px solid white;
+}
+
+.button.ready {
   background-color: greenyellow;
   border-color: green;
   margin-top: 0.8em;
 }
 
-.ready:hover {
+.button.ready:hover {
   color: greenyellow;
   background-color: black;
   border: 2px solid greenyellow;
   margin-top: 0.8em;
 }
 
-.process {
-  background-color: red;
-  border-color: darkred;
-  margin-top: 0.8em;
-  color: rgb(50, 50, 50);
+/* Page: player_info */
+
+.completed {
+  color: green;
+  text-decoration: line-through;
 }
 
-.process:hover {
-  color: rgb(50, 50, 50);
-  background-color: red;
-  border: 2px solid darkred;
-}
 
 .pause {
   background-color: grey;
@@ -162,16 +159,12 @@ label {
   margin-top: 0.8em;
   margin-bottom: 0;
 }
-.ready,
-.wait,
-.process {
-  width: 7em;
-  text-align: center;
-}
 
-.warning {
-  color: red;
-  font-size: 2em;
+/* Page: index */
+
+.botlabel,
+.toplabel {
+  font-size: 1.2em;
 }
 
 #name {
@@ -181,12 +174,21 @@ label {
   margin-bottom: 0em;
 }
 
-.hidden {
-  display: none;
+.qr_scanner {
+  margin-top: 1.5em;
+  border: 2px solid yellowgreen;
+  border-radius: 8px;
 }
+
+/* Page: admin */
 
 .admin_tab {
   font-size: 2em;
+}
+
+.admin_tab_head, .admin_tab {
+  padding: 25px;
+  background-color: black;
 }
 
 .admin_tab_bool_true {
@@ -207,28 +209,4 @@ label {
 
 .table_admin {
   border: 2px solid;
-}
-
-.qr-code-scanner-container {
-  width: 100%;
-  max-width: 600px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.qr-scanner {
-  width: inherit;
-  margin-top: 1.5em;
-  border: 2px solid yellowgreen;
-  border-radius: 8px;
-}
-
-.hide-qr-scanner {
-  display: none;
-}
-
-th, td {
-  padding: 25px;
-  background-color: black;
 }

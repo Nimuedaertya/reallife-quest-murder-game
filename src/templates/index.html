@@ -20,10 +20,9 @@
 {% endblock header %}
 {% block body %}
     {% if meta_data.https %}
-        <div class="qr-code-scanner-container">
-            <button id="qr_code_button" class="ready">QR Code scannen</button>
-            <video id="qr-scanner-feed" class="qr-scanner hide-qr-scanner" autoplay>
-            </video>
+        <div>
+            <button id="qr_code_button" class="button ready">QR Code scannen</button>
+            <video id="qr_scanner_feed" class="qr_scanner hidden" autoplay \>
             <button id="flash-toggle" class="ready hidden">Blitz einschalten</button>
         </div>
     {% endif %}
@@ -65,7 +64,7 @@
 			import QrScanner from '{{ url_for('static', filename='src/scripts/libraries/qr-scanner.min.js')}}';
 
 			$(document).ready(function() {
-				const video_elem = $('#qr-scanner-feed')
+				const video_elem = $('#qr_scanner_feed')
 
 				$('#qr_code_button').on('click', async function () {
 
@@ -81,7 +80,7 @@
 
 					qrScanner.start();
 					$(this).addClass('hidden')
-					$(video_elem).removeClass('hide-qr-scanner')
+					$(video_elem).removeClass('hidden')
 
 					qrScanner.hasFlash().then(hasFlash => {
 						if(hasFlash) {
@@ -92,7 +91,7 @@
 					await new Promise(resolve => setTimeout(resolve, 15000));
 
 					qrScanner.stop()
-					$(video_elem).addClass('hide-qr-scanner')
+					$(video_elem).addClass('hidden')
 					$(this).removeClass('hidden')
 				})
 			});
