@@ -285,21 +285,6 @@ async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
 
 [[package]]
-name = "flask-assets"
-version = "2.1.0"
-description = "Asset management for Flask, to compress and merge CSS and Javascript files."
-optional = false
-python-versions = "*"
-files = [
-    {file = "Flask-Assets-2.1.0.tar.gz", hash = "sha256:f84d6532ffe59c9ff352885e8740ff4da25c0bcfacd805f0a806815e44354813"},
-    {file = "Flask_Assets-2.1.0-py3-none-any.whl", hash = "sha256:a56c476b15f84701712cc3b4b4a001ebbe62b1dcbe81c23f96fbe6f261b75324"},
-]
-
-[package.dependencies]
-Flask = ">=0.8"
-webassets = ">=2.0"
-
-[[package]]
 name = "flask-classful"
 version = "0.16.0"
 description = "Class based views for Flask"
@@ -1058,17 +1043,6 @@ files = [
 ]
 
 [[package]]
-name = "webassets"
-version = "2.0"
-description = "Media asset management for Python, with glue code for various web frameworks"
-optional = false
-python-versions = "*"
-files = [
-    {file = "webassets-2.0-py3-none-any.whl", hash = "sha256:a31a55147752ba1b3dc07dee0ad8c8efff274464e08bbdb88c1fd59ffd552724"},
-    {file = "webassets-2.0.tar.gz", hash = "sha256:167132337677c8cedc9705090f6d48da3fb262c8e0b2773b29f3352f050181cd"},
-]
-
-[[package]]
 name = "werkzeug"
 version = "3.0.4"
 description = "The comprehensive WSGI web application library."
@@ -1102,4 +1076,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "77173e93b59ec603f164310031f53f3ceac8a7be357bd8e0736b9795b20d59ba"
+content-hash = "9ee2554c93fb310fd3577ec64efd2f22eb7cbd4851085a710e003c1c97ce516b"
