@@ -47,24 +47,23 @@
                 {% for person in data.other_role_info[role].entities %}<li>{{ person }}</li>{% endfor %}
             </ul>
         {% endfor %}
+    {% endif %}
+    <div id="noti"></div>
+    <h3>Du hast folgende Aufgaben:</h3>
+    <ul>
+        {% for task in data.tasks %}
+            {% if task.task_done == true %}
+                <li class="completed">{{ task.name }}</li>
+            {% else %}
+                <li>{{ task.name }}</li>
+            {% endif %}
+        {% endfor %}
     </ul>
-{% endif %}
-<div id="noti"></div>
-<h3>Du hast folgende Aufgaben:</h3>
-<ul>
-    {% for task in data.tasks %}
-        {% if task.task_done == true %}
-            <li class="completed">{{ task.name }}</li>
-        {% else %}
-            <li>{{ task.name }}</li>
-        {% endif %}
-    {% endfor %}
-</ul>
-{% if data.role.can_kill %}
-    <button id="kill" class="button ready">💀 Kill</button>
-    <label class="hidden toplabel" id="killcount" for="kill"></label>
-{% endif %}
-<button id="dead_button" class="button ready" value='dead'>Dead</button>
-{% if meta_data.https %}<button id="report" class="button report ready">Leiche melden</button>{% endif %}
-{{ super() }}
+    {% if data.role.can_kill %}
+        <button id="kill" class="button ready">💀 Kill</button>
+        <label class="hidden toplabel" id="killcount" for="kill"></label>
+    {% endif %}
+    <button id="dead_button" class="button ready" value="dead">Dead</button>
+    {% if meta_data.https %}<button id="report" class="button report ready">Leiche melden</button>{% endif %}
+    {{ super() }}
 {% endblock body %}

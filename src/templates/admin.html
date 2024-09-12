@@ -8,14 +8,10 @@
     <br>
     <table class="table_admin">
         <tr>
-            <td class="admin_tab_head">Player Name</td>
-            <td class="admin_tab_head">Role</td>
-            <td class="admin_tab_head">
-                <span>Alive</span>
-            </td>
-            <td class="admin_tab_head">
-                <span>Link</span>
-            </td>
+            <th class="admin_tab_head">Player Name</th>
+            <th class="admin_tab_head">Role</th>
+            <th class="admin_tab_head">Alive</th>
+            <th class="admin_tab_head">Link</th>
         </tr>
         {% for player_id in data %}
             {% set player = data[player_id] %}
@@ -23,9 +19,9 @@
                 <td class="admin_tab">{{ player.name }}</td>
                 <td class="admin_tab">{{ player.role.name }}</td>
                 {% if player.dead %}
-                    <td class="admin_tab_bool_false">&times;</td>
+                    <td class="admin_tab_bool_false">×</td>
                 {% else %}
-                    <td class="admin_tab_bool_true">&#10004;</td>
+                    <td class="admin_tab_bool_true">✔</td>
                 {% endif %}
                 <td>
                     <a href="../user/{{ player_id }}" class="button">Spielerprofil</a>
