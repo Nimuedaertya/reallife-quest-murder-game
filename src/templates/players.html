@@ -10,6 +10,6 @@
 {% block body %}
     <h2>Spielerübersicht</h2>
     <h3>{{ number_alive }} von {{ number_all }} sind noch am Leben!</h3>
-	<button onclick="document.location='../../tasks'">Zum Aufgabenstatus</button>
-    <button onclick="document.location='../'">Zur Startseite</button>
+    <a href="../../tasks" class="button">Zum Aufgabenstatus</a>
+    <a href="../" class="button">Zur Startseite</a>
 {% endblock body %}
