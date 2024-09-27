@@ -1,17 +1,15 @@
 {% extends "base_template.html" %}
-
-{% block title %} Player Overview {% endblock title %}
-
+{% block title %}
+    Player Overview
+{% endblock title %}
 {% block js_files %}
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
-	<!-- <script async defer language="JavaScript" type="text/javascript" src="{{ url_for('static', filename='src/scripts/sabotage.js')}}"></script> --->
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+    <!-- <script async defer language="JavaScript" type="text/javascript" src="{{ url_for('static', filename='src/scripts/sabotage.js')}}"></script> --->
 {% endblock js_files %}
-
 {% block body %}
-	<h2> Spielerübersicht </h2>
-
-	<h3> {{ number_alive }} von {{ number_all }} sind noch am Leben! </h3>
-
-	<button onclick="document.location='../../tasks'">Zum Aufgabenstatus</button> 
-    <button onclick="document.location='../'">Zur Startseite</button> 
+    <h2>Spielerübersicht</h2>
+    <h3>{{ number_alive }} von {{ number_all }} sind noch am Leben!</h3>
+    <a href="../../tasks" class="button">Zum Aufgabenstatus</a>
+    <a href="../" class="button">Zur Startseite</a>
 {% endblock body %}

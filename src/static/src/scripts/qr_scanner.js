@@ -1,7 +1,7 @@
 import QrScanner from './libraries/qr-scanner.min.js';
 
 $(document).ready(function() {
-const video_elem = $('#qr-scanner-feed')
+const video_elem = $('#qr_scanner_feed')
 
 $('#qr_code_button').on('click', async function () {
 
@@ -17,7 +17,7 @@ $('#qr_code_button').on('click', async function () {
 
 	qrScanner.start();
 	$(this).addClass('hidden')
-	$(video_elem).removeClass('hide-qr-scanner')
+	$(video_elem).removeClass('hidden')
 
 	qrScanner.hasFlash().then(hasFlash => {
 		if(hasFlash) {
@@ -28,7 +28,7 @@ $('#qr_code_button').on('click', async function () {
 	await new Promise(resolve => setTimeout(resolve, 15000));
 
 	qrScanner.stop()
-	$(video_elem).addClass('hide-qr-scanner')
+	$(video_elem).addClass('hidden')
 	$(this).removeClass('hidden')
 })
 });

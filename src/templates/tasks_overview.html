@@ -1,11 +1,11 @@
 {% extends "base_template.html" %}
-
-{% block title %} Overview Tasks {% endblock title %}
-
+{% block title %}
+    Overview Tasks
+{% endblock title %}
 {% block body %}
-    <h2> Status erledigte Aufgaben ^-^ </h2>
-    <p>  Existente Aufgaben: {{ amount_tasks }} </p>
-    <p>  Erledigte Aufgaben: {{ completed_tasks }} </p>
-	<button onclick="document.location='../../players'">Zur Spielerübersicht</button> 
-    <button onclick="document.location='../'">Zur Startseite</button> 
+    <h2>Status erledigte Aufgaben ^-^</h2>
+    <p>Existente Aufgaben: {{ amount_tasks }}</p>
+    <p>Erledigte Aufgaben: {{ completed_tasks }}</p>
+    <a class="button" href="../../players">Zur Spielerübersicht</a>
+    <a class="button" href="../">Zur Startseite</a>
 {% endblock body %}

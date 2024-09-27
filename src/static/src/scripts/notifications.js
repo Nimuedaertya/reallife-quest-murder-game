@@ -8,6 +8,7 @@ function askNotificationPermission() {
   }
 }
 const notibtn = document.createElement("button");
+notibtn.className = "button";
 notibtn.textContent = "Notifications erlauben";
 notiPlace.append(notibtn);
 

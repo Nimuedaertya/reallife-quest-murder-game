@@ -8,7 +8,6 @@ import copy
 from flask import Flask, render_template, request, redirect, jsonify
 from flask_classful import FlaskView, route
 from flask_socketio import SocketIO, emit
-from flask_assets import Bundle, Environment
 from loading import load_roles, load_tasks, load_players
 from init_round import distribute_roles, distribute_tasks
 
@@ -25,8 +24,6 @@ ENDPOINT_ADMIN_JSON = '/adminjson'
 ###
 
 app = Flask(__name__)
-assets = Environment(app)
-css = Bundle(const.PATH_CSS_INPUT, output=const.PATH_CSS_OUTPUT)
 socketio = SocketIO(app)
 app.config['SECRET_KEY'] = const.FLASK_SECRET_KEY
 https_enabled = False
@@ -218,10 +215,6 @@ if __name__ == '__main__':
         log.info("Verbose output.")
     else:
         log.basicConfig(format='[%(asctime)s] %(levelname)s: %(message)s', datefmt='%I:%M:%S %p')
-
-    # css
-    assets.register("css", css)
-    css.build()
 
     # create round object
     Round.register(app, route_base='/')
